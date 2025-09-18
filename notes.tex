@@ -1,0 +1,1962 @@
+\documentclass{amsart}
+
+\usepackage{notes}
+
+\title{BIRS-CMO Workshop on Equivariant TQFT}
+\author{Notes by John S.\ Nolan, speakers listed below}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\section{Karl Dovermann -- Equivariant real algebraic models}
+
+In general, we want to ask: given a manifold, how much additional structure can we add?
+How unique is this?
+For example:
+
+\begin{itemize}
+  \item Triangulations may not exist and need not be unique (the ``Hauptvermutung'' is false).
+  \item Smooth structures may not exist and need not be unique.
+\end{itemize}
+
+\subsection{Manifolds and algebraic geometry}
+
+We are interested in understanding when a manifold can be equipped with the structure of a real algebraic variety.
+Existence of such structures can be understood in terms of bordism.
+These structures, when they exist, are not necessarily unique.
+
+\begin{ex}
+  The 2-torus $T^2$ has two inequivalent real algebraic structures:
+  \begin{itemize}
+    \item The standard picture $T^2 = (S^1)^2 \subset \RR^4$.
+    \item We may also write $T^2 = \bset{(x, y, z) \in \RR^3}{x^2 + y^2 = x^2 + y^2 + z^2 + 3}$.
+  \end{itemize}
+\end{ex}
+
+In fact, it's more interesting to consider the following question.
+Let $M^m$ be a smooth manifold of dimension $m$, and let $\chi_T: M \to \Gr(RR^n, m)$ be a map classifying the tangent bundle of $M$.
+Can we obtain a commutative diagram
+\[
+  \begin{tikzcd}
+    M \dar["\sim"] \rar["\chi_T"] & \Gr(RR^n, m) \\
+    X \ar[ur]
+  \end{tikzcd}
+\]
+where $X$ is a real algebraic variety and $X \to \Gr(RR^n, m)$ is an entire rational map?
+The answer may again be understood via bordism: we get a class $[M, \chi_T] \in \Nc_*(\Gr(RR^n, m))$.
+
+\subsection{An equivariant problem}
+
+What happens if we incorporate a compact Lie group $G$ into the story?
+Let $\Xi$ be a real $G$-representation; then we want our variety $X$ to be a $G$-invariant subvariety of $X$.
+We let $\Gr(\Xi, d) = \bset{L \in \Mat_{m \times m}}{L^2 = L, L^T = L, \tr L = d}$.
+
+Let $M$ be a closed smooth $G$-manifold.
+A (real) \emph{algebraic model} $X$ of $M$ is an algebraic $G$-variety equivariantly diffeomorphic to $M$.
+Say this is \emph{strong} if all vector bundles are classified by equivariant rational maps.
+
+\begin{qn}
+  Do such exist?
+\end{qn}
+
+\begin{thm}
+  As in the nonequivariant case, if a manifold is equivariantly cobordant to a non-singular real algebraic variety, then it is equivariantly diffeomorphic to a real algebraic variety.
+\end{thm}
+
+We end up looking at $\Nc_*^G(\prod^G \Gr(\Xi, d))$.
+Existence of real algebraic models holds in the following cases:
+\begin{itemize}
+  \item True whenever $G$ is of odd order.
+  \item True if $G = \ZZ_2 \times \dots \times \ZZ_2$ is an elementary abelian group.
+  \item True if $G = \ZZ_{2^k}$.
+\end{itemize}
+
+\subsection{Working with 2-groups}
+
+Let $G$ be a finite group and $G_2$ a Sylow 2-subgroup.
+If all isotropy groups of $G \curvearrowright M$ are 2-groups, then Stong's theorem implies the following:
+if $M$ admits a strong algebraic model as $G_2$-manifolds, then $M$ admits a strong algebraic model as $G$-manifolds.
+
+To reduce to the case where all isotropy groups are 2-groups, we can blow up along subgroups.
+This can be understood in differential geometry as removing the normal bundle to a subvariety and gluing in a projective bundle.
+
+\begin{thm}
+  If $A \subset M$ is $G$-invariant and $A$ and $\Bl_A M$ have strong algebraic models, then so does $M$.
+\end{thm}
+
+We can use this to get strong algebraic models in some key cases, e.g.\ if $G$ acts trivially on $M$.
+More generally, this works if $M$ has only one isotropy type $H$ and every representation of $H$ is a restriction of representations of $G$.
+
+These methods can also be used to obtain real algebraic models to the following cases:
+\begin{itemize}
+  \item True if $G_2$ is cyclic.
+  \item True if $G$ is simple and $G_2$ is elementary abelian.
+\end{itemize}
+
+We'd still like to account for more $2$-groups, e.g.\ $Q_8$, $D_8$, and $\ZZ_4 \times \ZZ_4$.
+
+\begin{ex}
+  Let $G = \ZZ_4 \times \ZZ_4$, and suppose $M$ has only one isotropy type $H$.
+  Let's first focus on the case $H = \ZZ_2 \times \ZZ_2$.
+  We look at $\Nc^G_*[H](\prod \Gr(\Xi, d))$ and want to understand which classes are represented by algebraic varieties.
+  One may pass to $\Nc^{G/H}_*[\textrm{free}](\prod \Gr(\Xi, d_i)^H)$ and then reduce to the non-equivariant case.
+  Indeed, letting $\Fc$ be a component of $\prod \Gr(\Xi, d_i)^H$ and $W = G/H$, there is an isomorphism $\Nc_*^W[\textrm{free}](\Fc) \xrightarrow{\sim} \Nc_*(EW \times_W \Fc)$.
+  The Thom construction gives a map $\Nc_*(EW \times_W \Fc) \to H_*(EW \times_W \Fc, \ZZ_2)$.
+  These last homology groups may be computed via spectral sequences.
+\end{ex}
+
+There are still many open problems about understanding what happens for other 2-groups.
+
+\section{Daniel L\'opez Neumann -- Quantum Invariants, Geometric Topology, and Non-Semisimplicity}
+
+This is based on joint work with Roland van der Veen.
+
+Recall that a knot $K$ is an embedding $S^1 \hookrightarrow S^3$.
+
+We want to understand quantum invariants of knots (after Jones, Witten, Reshetikhin--Turaev, Drinfeld, etc.).
+Let $\gfr$ be a simple Lie algebra and $V$ a $\gfr$-representation.
+We may construct an isotropy invariant $I_V(K) \in \ZZ[q^{\pm 1}]$.
+There are more general constructions which will be discussed tomorrow.
+
+\begin{qn}
+  What is the topological content of these quantum invariants?
+\end{qn}
+
+To understand this, we can think of the Alexander polynomial as a non-semisimple quantum invariant.
+Thus we should try to understand non-semisimple quantum invariants.
+
+\subsection{The Alexander polynomial}
+
+Let $K \subset S^3$ be a knot, and let $X_K = S^3 \setminus K$.
+The first homology $H_1(X_K)$ is just $\ZZ$, so this is not interesting.
+However, we may write $H_1(X_K)$ as the abelianization of $\pi_1(X_K)$, which is more interesting.
+Let $\hat{X_K}$ be the covering space of $X_K$ corresponding to the commutator subgroup $[\pi_1, \pi_1] \subset \pi_1(X_K)$.
+In particular, the fibers of $\hat{X_K} \to X_K$ are $\ZZ$, so we get a $\ZZ[\ZZ] = \ZZ[t^{\pm 1}]$-action on $C_*(\hat{X_K})$.
+
+We'll focus on the action $\ZZ[t^{\pm 1}] \curvearrowright H_1(\hat{X_K})$.
+Write $H_1(\hat{X_K}) = \oplus_i \ZZ[t^{\pm 1}] / p_i(t)$, and let
+\[
+  \Delta_K(t) = \prod_i p_i(t) = \ord_{\ZZ[t^{\pm 1}]} H_1(\hat{X_K}).
+\]
+We may view the Alexander polynomial $\Delta_K$ as an invariant of 3-manifolds with $\ZZ$-action.
+Alternatively, $\Delta_K$ generalizes to an invariant of the pair $(K, \pi_1(X_K) \to \ZZ)$.
+This last picture connects to Reidemeister torsion.
+
+Why is this good for geometric topology?
+
+\begin{dfn}
+  Say $K \subset S^3$ is \emph{fibered} if there exists a fibration $S^3 \setminus K \to S^1$ with fibers given by Seifert surfaces.
+\end{dfn}
+
+\begin{ex}
+  The unknot is fibered.
+\end{ex}
+
+\begin{ex}
+  The trefoil is also fibered, though this is harder to see.
+\end{ex}
+
+\begin{thm}
+  If a knot $K$ is fibered, then $\Delta_K(t)$ is monic and has degree equal to $2 g(F)$, where $g(F)$ is the genus of the fiber.
+\end{thm}
+
+\subsection{Some representation theory of $\sl_2(k)$}
+
+Recall that the Lie algebra $\sl_2(k)$ has basis $H, E, F$ with $EF - FE = H$.
+
+If $\charop k = 0$, then $\sl_2(k)$ is semisimple, and there are simple representations $V_m$ for $m \in \NN$.
+Furthermore, the weights live in $\ZZ$.
+
+Things are more complicated when $\charop k = p > 0$.
+Here we still have simple modules $V_0, V_1, \dots, V_{p-2}$.
+However, there are infinitely many simple modules $V_\alpha$ in dimension $p$, and they are parametrized by $\alpha \in k$.
+The vector space $V_\alpha$ has basis $v_0, \dots, v_{p-1}$, and $H$ acts by $H v_i = (\alpha - 2i) v_i$.
+The elements $E$ and $F$ still act by raising / lowering degree.
+
+We're especially interested in the quantum world.
+Here we work with a Hopf algebra $U_q \sl_2$ (over $\CC$) defined using a parameter $q$.
+This has generators $H, E, F$ satisfying
+\[
+  EF - FE = \frac{q^H - q^{-H}}{q - q^{-1}}.
+\]
+When $q$ is not a root of $1$, the theory behaves much like that of $\sl_2(\CC)$.
+When $q^{2p} = 1$, the theory behaves more like that in characteristic $p$.
+In particular, we have simple modules $V_\alpha$ for $\alpha \in \CC$.
+The coefficients in the raising / lowering operators are controlled by quantum numbers $[\alpha + i]_q$.
+
+\subsection{Quantum invariants of knots}
+
+Let $V$ be a finite-dimensional representation of $U_q \sl_2$.
+There exists a braiding $c: V \otimes V \to V \otimes V$ satisfying the Yang-Baxter equation
+\[
+  (1 \otimes c) \circ (c \otimes 1) \circ (1 \otimes c) = (c \otimes 1) \circ (1 \otimes c) \circ (c \otimes 1).
+\]
+This gives knot invariants by writing a knot as a braid closure and viewing the braid as a string diagram in $\Rep U_q \sl_2$.
+
+For generic $q$, we get invariants $I_{V_m}(K) \in \ZZ[q^{\pm 1}]$.
+These are the \emph{colored Jones polynomials}.
+
+If $q = \zeta$ for $\zeta$ a primitive $2p$th root of unity, we have more representations $V_\alpha$.
+Thus we get $I_{V_\alpha}(K) \in \ZZ[\zeta][t^{\pm 1}]$ (where $t = q^\alpha$).
+We may call these $\ADO_p(K, t)$ (after Akutsu--Deguchi--Ohtsuki).
+Note that $\ADO_2(K, t) = \Delta_K(t)$.
+
+\begin{thm}[LN-vdV 2024]
+  Let $K$ be a fibered knot.
+  Then $\ADO_p(K, t)$ is $q$-monic, and $\deg_t \ADO_p(K) = 2 (p-1) g(F)$.
+\end{thm}
+
+The proof uses some difficult results in contact geometry -- the speaker doesn't know if it's possible to give an algebraic topology proof.
+There's a theorem of Stallings that says that, if $K$ is fibered, then $[\pi_1, \pi_1]$ is finitely generated.
+
+\subsection{$G$-equivariance}
+
+If $q$ is generic, then $\Rep U_q \sl_2$ is a tensor category.
+If $q$ is a root of $1$, then we may upgrade this structure to view $\Rep U_q \sl_2$ as a $\CC / 2 \ZZ$-tensor category.
+
+Turaev tells us that we should think of this in terms of $G$-crossed braided tensor categories.
+From the $G$-crossed braided story, we get invariants of pairs $(K, \rho: \pi_1(X_K) \to G)$.
+Thus, when $q$ is a root of unity, we can generalize the ADO invariants to invariants of knots $K$ together with $\rho: \pi_1(X_K) \to \CC / 2\ZZ$.
+There are many interesting questions about interpretations of these.
+
+\section{Ralph Kaufmann -- Orbifolding TFTs and CFTs}
+
+This was a slide talk so my notes are pretty heuristic.
+
+There is a notion of $G$-Frobenius algebra ``equivariantizing'' the usual Frobenius algebras.
+We may categorify this to get $G$-fusion categories.
+
+Note that $G$-Frobenius algebras are modules over $D(k[G])$, the Drinfeld double of the group ring $k[G]$.
+These may also be understood as functors out of $\Lambda G$.
+
+We like to twist by characters $\chi: G \to \CC^\times$ to account for the physics of orbifold LG modules.
+More generally, if $\Cc$ is a monoidal category and $\II_\chi$ is an even invertible element, we may twist actions by $\chi$.
+By this point I had stopped being able to follow things, sorry!
+
+\section{Renee Hoekzema -- Invertible and Striped Cylinder TQFTs}
+
+This was also a slide talk based on joint work with many collaborators.
+
+\subsection{Invertible field theories}
+
+Recall that 2d TQFTs correspond to commutative Frobenius algebras.
+To classify more general TQFTs, we can either:
+\begin{itemize}
+  \item Find generators-and-relations descriptions of cobordism categories.
+  \item Restrict to nice classes of TQFTs, e.g.\ invertible TQFTs.
+\end{itemize}
+
+Recall that a TQFT is invertible if every object and morphism in $\Cob_n$ is sent to an invertible object.
+Freed and Hopkins conjectured that invertible TQFTs classify symmetry-protected topological phases of matter.
+Furthermore, one can classify invertible TQFTS valued in $\sVect$ -- they correspond to ``SKK invariants,'' i.e.\ homomorphisms $\SKK_n \to \CC^\times$.
+Here $\SKK_n$ is a certain quotient of the Grothendieck group of $n$-manifolds by saying that 
+\[
+  [M \cup_\phi N] - [M \cup_\psi N] = [M' \cup_\phi N'] - [M' \cup_\psi N'].
+\]
+whenever we have the same gluing data $\phi, \psi$.
+The proof appears in future work of Kreck--Stolz--Teichner.
+
+One may fit $\SKK_n$ into short exact sequences involving $\Omega_n$.
+
+\subsection{Tangential structures}
+
+\begin{dfn}
+  Fix a map $\xi: B_n \to \BO_n$.
+  A \emph{$\xi$-structure} on a manifold $M$ is a lift of the tangent classifier $M \to \BO_n$.
+\end{dfn}
+
+We may fit the corresponding groups into an ``SKK sequence:''
+\[
+  \begin{tikzcd}
+    0 \rar & \angles{S^n}_{\SKK^\xi} \rar & \SKK^\xi_n \rar & \Omega^\xi_n \rar & 0.
+  \end{tikzcd}
+\]
+
+\begin{qn}
+  How do we compute $\angles{S^n}_{\SKK^\xi}$?
+  It's always $0$, $\ZZ/2$, or $\ZZ$ (I might have written this wrong).
+\end{qn}
+
+\begin{qn}
+  For which $\xi$ do these sequences split?
+\end{qn}
+
+Ebert showed the sequence splits for $\BSO_n \to \BO_n$ when $n \equiv 1 \pmod 4$.
+The speaker showed many results for other parts of the Whitehead tower of $\BO_n$.
+
+\begin{conj}
+  If $n$ is odd then the SKK sequence always splits.
+\end{conj}
+
+\subsection{Generators and relations}
+
+Let's go back to the question of understanding a generators-and-relations presentation of $\Cob_n$.
+Consider nested manifolds $M_I$ consisting of $M^{d_1} \subset M^{d_2} \subset \dots \subset M^{d_k}$.
+We may define corresponding nested cobordisms and a nested cobordism category $\Cob_I$.
+The generating morphisms for $\Cob_I$ are given by elementary cobordisms with $0$ or $1$ Morse critical points.
+Relations are harder and are the subject of ongoing work.
+
+What does this mean in terms of algebra, i.e.\ what classifies a symmetric monoidal functor $\Cob_I \to \Vect$?
+Within $\Cob_I$ for $I = \{0, 1, 2\}$, one may define a ``cylinder category'' $\Cyl$.
+Symmetric monoidal functors $\Cyl \to \Cc$ may be described explicitly.
+They give rise to both affine and annular Temperley--Lieb algebras.
+
+One may also relate $\Cyl$ to the cyclic category $\Lambda\op$ (a modification of the simplex category used for cyclic homology).
+There's an inclusion $\Lambda\op \hookrightarrow \Cyl_\mathrm{even}$.
+There's a ``cylinder bar construction'' one can use to capture the structure of $\Cyl$.
+
+\section{Problem Session}
+
+Here are a few natural problems arising from the work today:
+\begin{itemize}
+  \item (Eric Samperton) Consider the characters $\chi: G \to \CC^\times$ appearing in RK's twisted Frobenius algebras.
+    What does this mean from the TQFT perspective?
+    RK says it's something like a ``Tate object'' changing the fusion rules in the fusion categories.
+    How does this fit in?
+  \item (Kyle Kawagoe) How do we equivariantize RH's $\Cyl$ category?
+  \item (David Green) Does $\Cyl$ have a (symmetric) monoidal structure?
+  \item (John Nolan) Can we understand the $G$-crossed invariants in DLN's talk in terms of local systems / algebraic topology?
+  \item (Daniel L\'opez Neumann) Let $q$ be fixed and let $n$ grow.
+    Is there a classical interpretation of the knot invariants associated with $U_q \sl_n$?
+  \item (Daniel L\'opez Neumann) More generally, ``Alexander theorems'' are theorems about non-semisimple quantum invariants.
+    What is the relationship between the SQP property for knots and having positive powers of $q$ in the polynomial?
+    (This only works for generic coefficients.)
+  \item (Ralph Kaufmann) Conjecture about Green--Plesser mirror symmetry in terms of (de-)equivariantization of matrix factorization categories and Hochschild homology.
+  \item (Karl Dovermann) Does (strong) algebraic realization for $G_2$ imply (strong) algebraic realization for $G$?
+  \item (Kyle Kawagoe) How does realization work for infinite compact Lie groups? e.g. $\ZZ_2 \ltimes \Urm(1)$?
+  \item (Renee Hoekzema) Does there exist a 4-orientable manifold with odd Euler characteristic?
+    The speaker has some specific examples in mind (e.g.\ Rosenfeld projective planes).
+  \item (John Nolan) Is there anything interesting we can say about the SKK invariants for the Postnikov tower for $\BO_n$ (as opposed to the Whitehead tower)?
+  \item (Eric Samperton) What is an equivariant TQFT?
+    Want to understand the difference between TQFTs for $X$ with a principal $G$-bundle and TQFTs for $X$ with a $G$-action.
+    Is there a sensible cobordism category for the latter?
+  \item (Kyle Kawagoe) What about replacing $\Vect$ (in the codomain of a TQFT) by $\Rep(G)$?
+    How do these interact?
+\end{itemize}
+
+\section{Robert Oeckl -- Compositional QFT: Motivation and Axiomatics}
+
+This is joint work with Juan Orendain (speaking next on the same subject).
+The goal is to use ideas from TQFT to understand general physics.
+
+\subsection{Review of quantum theory}
+
+States live in a Hilbert space $\Hc$.
+The dynamics of a quantim system are given by a time evolution operator $U_{[t_1, t_2]}: \Hc \to \Hc$ or equivalently a transition amplitude $\ip{\psi_2}{U_{[t_1, t_2]} \psi_1}$.
+In QFT the transition amplitudes may be computed using Feynman intervals.
+The spacetime composition property of path integrals gives rise to gluing in TQFT: $U_{M \cup N} = U_N \circ U_M$.
+
+Realistic QFT is hard to formalize for the following reasons:
+\begin{itemize}
+  \item Directionality of cobordisms in TQFT can be identified with time evolution.
+    This is too restrictive for real QFT because the spacetime topology is boring.
+    In particular, decomposing along spacelike hypersurfaces doesn't tell us much!
+    We want to be able to decompose spacetime into compact regions, so that we can take limits as we work with finer and finer decompositions.
+    This forces us to work with an extended setting (including corners, \dots).
+  \item The vector spaces appearing in QFT require an inner product.
+  \item Real QFT requires infinite-dimensional vector spaces.
+  \item TQFT doesn't make physical predictions.
+    To make predictions in real QFT, we use the S-matrix which relates transition probabilities between spacelike hypersurfaces.
+\end{itemize}
+
+General boundary QFT avoids some of the usual problems with TQFT-type approaches.
+It can be used to formalize loop quantum gravity / spin foams.
+However, GBQFT is less elegant than TQFT, and it introduced many \emph{ad hoc} structures.
+
+\subsection{Compositional QFT}
+
+Compositional QFT tries to incorporate the best aspects of GBQFT and TQFT.
+In particular, CQFT has:
+\begin{itemize}
+  \item Better descriptions of \emph{gluing}.
+  \item Notions of spacetime symmetries and equivariance.
+  \item Functoriality related to involutive symmetric monoidal categories.
+\end{itemize}
+
+Let's consider topological, oriented, compact manifolds of a fixed dimension.
+Say that $f: \Sigma \to \Sigma'$ is a gluing function (for hypersurfaces $\Sigma, \Sigma'$) if $f$ is continuous, closed, surjective, and orientation-preserving, and $f$ restricts to an embedding on the interior of $\Sigma$.
+One may also make sense of ``relative gluing diagrams'' in codimension $0$.
+Such diagrams let us handle examples such as gluing the sides of a square to form a cylinder.
+
+The target category of a compositional QFT is $\sVect$ with involution given by $V \mapsto \ol{\Pi V}$.
+We send spacelike hypersurfaces to state spaces and gluing functions to time evolution maps.
+The above axioms give an inner product on the state spaces of our QFTs as well as other useful structures.
+
+\section{Juan Orendain -- Compositional QFT and Isomorphism Extension}
+
+Note that CQFT aims to do QFT, not compute manifold invariants.
+Gluing is handled through ``relative gluing diagrams'' inspired by applied category theory.
+This gives CQFT a ``built in equivariance.''
+
+\subsection{The idea behind CQFT}
+
+Let $X_1$ and $X_2$ be regions in spacetime.
+We would like to understand physics by gluing the behavior of $X_1$ and $X_2$ together.
+CQFT assigns state spaces to boundaries of regions and more generally to hypersurfaces.
+
+In the version sketched above, we let regions be compact topological manifolds of dimension $n + 1$.
+We also consider hypersurfaces in these regions.
+Gluing is handled by taking colimits, and in CQFT we choose \emph{explicit colimit representations}.
+
+Note that gluing functions are stable under compositions, changes of orientation, disjoint unions, and homeomorphisms.
+Thus we get an (involutive) category of gluing functions.
+Note that this is not a dagger category, nor is it a compact closed category.
+The involution does not change the order of morphisms in the category!
+
+Let $\Mc_{\mathrm{hyp}}^{\mathrm{gl}}$ be the category of hypersurfaces and gluing functions.
+This is an involutive symmetric monoidal category.
+Similarly, $\Vect_\CC$ is an involutive symmetric monoidal category (with $J(V) = \ol{V}$).
+
+The relative gluing diagrams mentioned before let us glue regions along \emph{parts} of their boundaries (not necessarily the entire boundaries).
+We may also organize relative gluing diagrams into an involutive symmetric monoidal category.
+
+The codimension $1$ part of a CQFT is equivalent to the data of a (strictly) involutive strong symmetric monoidal functor $\Mc_{\mathrm{hyp}}^{\mathrm{gl}} \to \sVect_\CC$.
+More generally, we may consider involutive SMCs $\Cc$ fibered over $\Mc_{hyp}^{gl}$ and consider nice functors $\Cc \to \sVect$ (or some similar category).
+However, this doesn't encompass the behavior of CQFTs on regions.
+
+\section{Cesar Galindo -- Minimal Nondegenerate Extensions of Braided Fusion Categories}
+
+\subsection{Review of fusion categories}
+
+Recall that a \emph{fusion category} (over $k = \CC$) is:
+\begin{itemize}
+  \item Semisimple, with finitely many iso classes of simple objects,
+  \item Monoidal and rigid (i.e.\ every object is dualizable), with $\onebb$ simple
+\end{itemize}
+
+\begin{ex}
+  Let $G$ be a finite group.
+  Then $\Rep(G)$ is a fusion category.
+\end{ex}
+
+\begin{ex}
+  Let $G$ be a finite group.
+  Then the category $\Vect_G$ of $G$-graded vector spaces is a fusion category (with tensor product given by $\CC_g \otimes \CC_h = \CC_{gh})$.
+\end{ex}
+
+\begin{ex}
+  For a semisimple Lie algebra $\gfr$ and $k \in \NN$, there is a fusion category $\Cc(\gfr, \NN)$.
+\end{ex}
+
+\subsection{Grothendieck rings and Frobenius--Perron dimensions}
+
+We can understand fusion categories by decategorifying and looking at the Grothendieck ring $K_0(\Cc)$.
+We can write
+\[
+  [X] \otimes [Y] = \sum_{[Z]} N_{X,Y}^{Z} [Z]
+\]
+where $N_{X,Y}^Z = \dim_\CC \Hom(Z, X \otimes Y)$.
+
+\begin{ex}
+  The Grothendieck ring $K_0(\Rep(G))$ is the character ring of $G$.
+\end{ex}
+
+\begin{ex}
+  The Grothendieck ring $K_0(\Vect_G)$ is $\ZZ[G]$.
+\end{ex}
+
+\begin{ex}
+  There is a Fibonacci fusion category with fusion ring generated by $\onebb$, $\tau$ satisfying $\tau^2 = \onebb + \tau$.
+\end{ex}
+
+We may define a \emph{Frobenius--Perron dimension} $\FPdim: K_0(\Cc) \to \RR$.
+This is the unique homomorphism satisfying $\FPdim(X) > 0$ for all nonzero $X$.
+We let $\FPdim(\Cc) = \sum_{X \in \Irr(\Cc)} \FPdim(X)^2$.
+
+\subsection{Braidings}
+
+A \emph{braided fusion category} is a fusion category together with a braiding $c_{X,Y}: X \otimes Y \to Y \otimes X$ satisfying the usual axioms.
+
+\begin{ex}
+  We may view $\Rep(G)$ as a braided fusion category with the trivial braiding $c(v \otimes w) = w \otimes v$.
+  We call $\Rep(G)$ a \emph{Tannakian category}.
+\end{ex}
+
+\begin{ex}
+  Let $\tilde{G}$ be a finite group and fix $z \in Z(\tilde{G})$ with $z^2 = 1$.
+  Then we may decompose $\Rep(\tilde{G}) = \Rep(\tilde{G})_0 \oplus \Rep(\tilde{G})_1$ according to the sign of the action of $z$.
+  We may define a braiding on this category by $c(v \otimes w) = (-1)^{|v| |w|} w \otimes v$.
+  We call the resulting braided fusion category $\Rep(\tilde{G}, z)$ and think of $(\tilde{G}, z)$ as a supergroup (so $\Rep(\tilde{G}, z)$ is a \emph{super-Tannakian category}).
+  For $(\tilde{G}, z) = (\ZZ_2, [1])$ we get $\Rep(\ZZ_2, \tilde{1}) = \sVect$.
+\end{ex}
+
+\begin{ex}
+  If $\Cc$ is a fusion category, we may define a \emph{Drinfeld center} $Z(\Cc)$.
+  This is a braided fusion category.
+  Objects of $Z(\Cc)$ are pairs $(X, c_{X,-})$ where $c_{X,-}$ satisfies the relevant part of the associativity axiom for braidings.
+  There is a natural map $Z(\Cc) \to \Cc$, and we have $\FPdim(Z(\Cc)) = \FPdim(\Cc)^2$.
+\end{ex}
+
+Within a braided fusion category $\Bc$, we may define a \emph{M\"uger center} $Z_2(\Bc)$ as the full subcategory of $\Bc$ consisting of objects $X$ such that the braiding $c_{X,-}$ is symmetric.
+We say $\Bc$ is:
+\begin{itemize}
+  \item \emph{Symmetric} if $Z_2(\Bc) = \Bc$.
+    The symmetric fusion categories were classified by Deligne -- they are all Tannakian or super-Tannakian.
+  \item \emph{Nondegenerate} if $Z_2(\Bc) = \Vect$.
+  \item \emph{Slightly nondegenerate} if $Z_2(\Bc) = \sVect$.
+\end{itemize}
+
+\subsection{Extensions of fusion categories}
+
+\begin{dfn}
+  An extension of braided fusion categories $\Cc \supset \Bc$ is \emph{minimal} if:
+  \begin{itemize}
+    \item $\Cc$ is nondegenerate.
+    \item $\FPdim(\Bc) \FPdim(Z_2(\Bc)) = \FPdim(\Cc)$.
+  \end{itemize}
+\end{dfn}
+
+There are two natural questions:
+\begin{itemize}
+  \item When does a minimal extension exist?
+  \item How do we construct the set of minimal extensions $\Mext(\Bc)$ up to equivalence?
+\end{itemize}
+
+\begin{thm}[Lan--Kong--Wen]
+  \begin{itemize}
+    \item If $\Ec$ is symmetric, then $\Mext(\Ec)$ is an abelian group.
+    \item For any braided fusion category $\Bc$, $\Mext(\Bc)$ is a $\Mext(Z_2(\Bc))$-torsor.
+  \end{itemize}
+\end{thm}
+
+To understand existence of minimal extensions of $\Bc$, we split up according to whether $Z_2(\Bc)$ is Tannakian or super-Tannakian.
+
+\subsection{Extensions in the Tannakian case}
+
+If $Z_2(\Bc)$ is Tannakian, say we have $\Rep(G) \subset \Bc$.
+Let $A = \Osc(G) \in \Rep(G)$, and let $\Dc = \Bc_G = \Mod_A(\Bc)$.
+There is a natural braided monoidal structure on $\Dc$ given by $\otimes_A$.
+Because $G$ acts on $A$, we get an action of $G$ on $(\Dc, \otimes_A)$, i.e.\ a functor $G \to \Aut_\otimes(\Dc)$.
+By \emph{equivariantization}, we may recover $\Bc$ from $\Dc$ with its $G$-action via $\Bc = \Dc^G$.
+That is, $\Bc = (\Bc_G)^G$.
+We may also compute $\FPdim(\Bc_G) = \FPdim(\Bc) / |G|$.
+
+The above allows us to view $\Dc$ as a \emph{braided $G$-crossed fusion category}.
+That is, $\Dc = \oplus_{g \in G} \Dc_g$, and we have $\Dc_g \otimes \Dc_h = \Dc_{gh}$ and ${}^g \Dc_h \subset \Dc_{g h g\inv}$.
+There is also a braiding, but now it goes from $\Dc_g \otimes \Dc_h$ to ${}^g \Dc_h \otimes \Dc_g$.
+
+There's an equivalence between braided $G$-crossed fusion categories $\Dc$ with $\Dc_e = \Sc$ and homomorphisms of monoidal $2$-categories $G \to \Mod(\Sc)^\times$.
+If $\Sc$ is nondegenerate, then $\Mod(\Sc)^\times = \Aut_\otimes^{\mathrm{br}}(\Sc)$.
+This can be used to compute obstructions: a homomorphism $\tilde{\rho}: G \to \Aut_\otimes^{\mathrm{br}}(\Sc)$ determines an obstruction $o_4(\tilde{\rho}) \in H^4(G, \CC^\times)$.
+
+In particular, if $\Bc$ is a braided fusion category with $Z_2(\Bc)$ Tannakian, the map $G \to \Aut_\otimes^{\mathrm{br}}(\Sc)$ determines a class $o_4(\Bc) \in H^4(G, \CC^\times)$.
+
+\begin{thm}[G--Venargas--Ramirez]
+  If $\Bc$ is modularizable, then $\Bc$ admits a minimal extension if and only if $o_4(\Bc) = 0$.
+\end{thm}
+
+\subsection{Extensions in the super-Tannakian case}
+
+If $Z_2(\Bc)$ is super-Tannakian, we can still find a maximal Tannakian subcategory $\Rep(G) \subset \Rep(\tilde{G}, z) \subset \Bc$.
+\begin{thm}
+  Let $\Bc$ be a braided fusion category with $Z_2(\Bc) = \Rep(\tilde{G}, z)$, then $\Bc$ admits a minimal extension if and only if
+  there is a minimal extension $(\Bc_G)_e \subset \Sc$ and a fermionic action of $(\tilde{G}, z)$ on $\Sc$ such that
+  $\Bc_G \subset \Sc$, $\Bc_G$ is $G$-stable, $(\Bc_G)^G \simeq \Bc$, and $\Oc(S^G) = 0$.
+\end{thm}
+
+\section{Dmitri Nikshych -- Localization, Equivariantization, and Group-Theoretical Invariants of Braided Fusion Categories}
+
+This was a slide talk so my notes are sketchy.
+
+\subsection{More examples}
+
+Here are some more examples of braided fusion categories:
+
+\begin{ex}
+  Let $A$ be an abelian group and let $\phi: A \to k^\times$ be a quadratic form.
+  Then $\Vect_A$ has a unique braiding such that $c_{a,a} = \phi(a)$ for all $a \in A$.
+  We write the corresponding braided fusion category as $\Cc(A, q)$.
+  This is the most general example of a pointed braided fusion category.
+  The Drinfeld center $Z(\Vect_A)$ is $\Cc(A \oplus \hat{A}, h)$ where $h$ is the natural ``hyperbolic form.
+\end{ex}
+
+\begin{ex}
+  $R$-matrices on Hopf algebras also give braided fusion categories.
+\end{ex}
+
+\subsection{Centralizers}
+
+Let $\Cc$ be a BFC.
+The centralizer of a set of objects $\Sc$ is
+\[
+  \Sc' = \bset{X \in \Cc}{c_{XY} c_{YX} = \id_{X \otimes Y} \forall Y \in \Sc}.
+\]
+This is best thought of as analogous to an orthogonal complement in linear algebra.
+We say that $\Cc$ is nondegenerate if $\Cc' = \Vect$.
+
+\subsection{Localization and gauging}
+
+Let $\Bc$ be a braided fusion category, and let $\Ec = \Rep(G) \subset \Bc$ be a Tannakian subcategory.
+We define the \emph{localization} of $\Bc$ with respect to $\Ec$ as $\Bc^\loc = \Ec' \boxtimes_\Ec \Vect$.
+Equivalently, let $A = \Oc(G) \in \Rep(G)$, and let $\Bc^\loc$ be the category of \emph{local} $A$-modules in $\Bc$, i.e.\ those such that the module action plays well with the braiding.
+There is a natural action $G \to \Aut^\br(\Bc^\loc)$ (really we can think of this as a monoidal $2$-functor).
+
+\begin{ex}
+  Let $\Bc = \Rep(D(G))$, and let $N$ be a normal subgroup of $G$.
+  Then $\Ec = \Rep(G / N) \subset \Bc$ is Tannakian, and $\Bc^\loc = \Rep(D(N))$.
+  The group $G / N$ acts on $\Ec$ (the action is induced by the conjugation action $G \curvearrowright N$).
+\end{ex}
+
+Gauging is the inverse problem of localization.
+Given a braided fusion $\Bc$ with an action of a group $G$, we want to construct $\Dc \supset \Ec = \Rep(G)$ with $\Bc = \Ec' \boxtimes_\Ec \Vect$.
+Call this $\Dc$ a \emph{$G$-gauging} of $\Bc$.
+These are typically not unique if they exist: they are parametrized by monoidal $2$-functors $G \to \Mod(\Bc)^\times$.
+
+\begin{ex}
+  $G$-gaugings of $\Vect$ are all of the form $\Rep(D^\omega(G))$.
+\end{ex}
+
+To construct a $G$-gauging from a monoidal $2$-functor $F: G \to \Mod(\Bc)^\times$, we let $\Cc_g = F(g)$.
+Then $\Cc = \oplus_{g \in G} \Cc_g$ is a $G$-crossed braided category with $\Cc_e = \Bc$.
+The corresponding $G$-gauging of $\Bc$ is $\Dc = \Cc^G$.
+
+\begin{thm}[Etingof--N--Ostrik]
+  $\Aut^\br(\Bc) = \Mod(\Bc)^\times$ as categorical groups.
+\end{thm}
+
+This lets us construct monoidal $2$-functors as follows:
+\begin{itemize}
+  \item Find a homomorphism $G \to \Aut^\br(\Bc)$.
+  \item Lift it to a monoidal functor / categorical action.
+  \item Lift the monoidal functor to a monoidal $2$-functor.
+    (This involves an obstruction on $H^4(G, k^\times)$.)
+\end{itemize}
+
+\subsection{Cores}
+
+Assume from now on that $\Bc$ is nondegenerate.
+Let $M(\Bc)$ be the set of \emph{maximal} Tannakian subcategories of $\Bc$.
+
+\begin{thm}[Drinfeld--Gelaki--N--Ostrik]
+  If $\Ec_1, \Ec_2 \in M(\Bc)$, then $\Ec_1' \boxtimes_{\Ec_1} \Vect = \Ec_2' \boxtimes_{\Ec_2} \Vect$.
+\end{thm}
+
+The corresponding localization is called the \emph{core} of $\Bc$.
+Note that $\Ec_1$ and $\Ec_2$ need not be $\Rep(G)$ for the same group $G$.
+
+\begin{ex}
+  We have $\Rep D(\ZZ_4) = \Rep D^\omega(\ZZ_2 \times \ZZ_2)$.
+  In particular, descriptions of categories as twisted Drinfeld doubles are not unique.
+\end{ex}
+
+How can we get relevant invariants?
+
+\subsection{Tannakian radicals}
+
+Let $\Rad(\Bc) = \cap_{\Ec \in M(\Bc)} \Ec$.
+This intersection is Tannakian, so $\Rad(\Bc) = \Rep(G_\Bc)$ for some group $G_\Bc$.
+This is an invariant of $\Bc$.
+Say that $\Bc$ is reductive if $\Rad(\Bc) = \Vect$.
+
+The localization corresponding to $\Rad(\Bc)$ is the \emph{mantle} $\Mantle(\Bc)$ of $\Bc$.
+The terminology is inspired by geology: there are localizations $\Bc \to \Mantle(\Bc) \to \Core(\Bc)$.
+
+\begin{thm}
+  The mantle of $\Bc$ is reductive.
+\end{thm}
+
+Thus $\Bc$ is determined by a monoidal $2$-functor $G_\Bc \to \Mod(\Mantle(\Bc))^\times$.
+
+\begin{ex}
+  Let $G$ be a finite group.
+  Then $\Rad(\Rep(D(G))) = \Rep(G / N(G))$ where $N(G) = \bangle{A}{A \textrm{ is normal in $G$ and abelian}}$.
+  We have $\Mantle(\Rep(D(G))) = \Rep(D(N(G)))$.
+\end{ex}
+
+Say a fusion category $\Cc$ is \emph{nilpotent} if it is obtained from $\Vect$ by a sequence of graded extensions.
+Say that $\Cc$ is \emph{weakly group-theoretical} if it is Morita dual to a nilpotent one.
+All known examples of fusion categories with integral FP dimension are weakly group-theoretical.
+
+\begin{thm}
+  Let $\Bc$ be a non-degenerate BFC.
+  Then $\Bc$ is weakly group-theoretical if and only if $\Mantle(\Bc)$ is nilpotent.
+\end{thm}
+
+Note that if $\Bc$ is reductive then $\Bc \cap \Bc'$ is either $\Vect$ or $\sVect$.
+Let $\Tc(\Bc)$ be the subcategory of $\Bc$ generated by all Tannakian subcategories of $\Bc$.
+Then $\Tc(\Bc)$ is nilpotent, and $\Tc(\Bc)'$ is anisotropic (i.e.\ it has no Tannakian subcategories other than $\Vect$).
+Both $\Tc(\Bc)$ and $\Tc(\Bc)'$ are reductive.
+
+\subsection{Applications to classification of BFCs}
+
+Let's fix a given Frobenius--Perron dimension $N$.
+
+\begin{enumerate}
+  \item Look for pairs $(\Bc, G)$ with $\Bc$ reductive, $G$ a finite group, and $\FPdim(\Bc)|G|^2 = N$.
+  \item List all monoidal functors $G \to \Aut^\br(\Bc)$.
+  \item Determine all lifts of these to monoidal $2$-functors $G \to \Mod(\Bc)^\times$.
+    These give $G$-gaugings of $\Bc$.
+  \item Select gaugings $\tilde{\Bc}$ for which $\Rad(\tilde{\Bc}) = \Rep(G)$.
+\end{enumerate}
+
+We may also use this to enumerate non-equivalent centers.
+
+\subsection{Further localization of nilpotent parts}
+
+Let $\Bc$ be nilpotent and braided.
+We have a Sylow decomposition $\Bc = \boxtimes_p \Bc_p$.
+We may define an inductive sequence of localizations to reduce the study of nilpotent BFCs to the examples coming from quadratic forms.
+
+\section{Alexei Davydov -- Homotopy groups of the group of invertibles in \texorpdfstring{$d\Rep(G)$}{dRep(G)}}
+
+\subsection{The idea of TQFT}
+
+Suppose we have a closed $d$-manifold invariant $\tau(M) \in k$.
+We'd like to try to organize this into a TQFT.
+
+To get state spaces for $(d-1)$-manifolds $\Sigma$, we can let $V(\Sigma) = \bangle{N}{\partial N = \Sigma}$.
+Then we have a pairing $V(\Sigma) \times V(\Sigma) \to k$ given by $(N, N') \mapsto \tau(N \cup_\Sigma N')$.
+We let $Z(\Sigma) = V(\Sigma) / \ker$.
+
+We may hope that this extends to a symmetric monoidal functor $\Cob_{d-1,d} \to \Vect$.
+The ``quantum'' part of TQFT corresponds to the symmetric monoidal property $Z(X \sqcup Y) = Z(X) \otimes Z(Y)$.
+
+We might try to extend this even further, sending $(d-2)$-manifolds to ``$2$-vector spaces'' (i.e.\ (nice) linear categories), etc.
+This gives an extended TQFT.
+We'd like to think of the higher (symmetric monoidal) category $d\Vect$ of $d$-vector spaces as the trivial $(d+1)$-vector space.
+We could try to use this as an inductive definition of $d\Vect$.
+Properly formalizing this requires the use of higher categories.
+
+\subsection{Homotopy groups of $(d\Vect)^\times$}
+
+Let $(d\Vect)^\times$ be the $d$-categorical group of invertibles. 
+We may think of this as a homotopy type, so we may discuss the homotopy groups $\pi_i((d\Vect)^\times)$.
+Here $\pi_0(-)$ is the group of isomorphism classes of objects, and $\pi_i(-) = \pi_0(\Omega^i - )$.
+In particular, $\pi_1(-)$ is the group of isomorphism classes of $1$-morphisms $\onebb \to \onebb$, etc.
+Note that $d\Vect = \Omega (d+1)\Vect$.
+These assemble into a ``categorical spectrum.''
+
+For different values of $d$, we get:
+\begin{itemize}
+  \item $\pi_0((0\Vect)^\times) = k^\times$.
+  \item $\pi_0((1\Vect)^\times) = \{ 1 \}$.
+  \item $\pi_0((2\Vect)^\times) = \Br(k)$, the \emph{Brauer group}, consisting of Azumaya (i.e.\ Morita-invertible) algebras.
+    When $k$ is algebraically closed of characteristic zero, we have $\Br(k) = \{ 1 \}$.
+  \item $\pi_0((3\Vect)^\times)$ is the group of Azumaya fusion categories.
+    When $k$ is algebraically closed of characteristic zero, this is still $\{ 1 \}$.
+  \item $\pi_0((4\Vect)^\times) = W$, the Witt group of invertible nondegenerate braided fusion categories (a countable infinite group).
+\end{itemize}
+
+To understand the computation $\pi_0((4\Vect)^\times) = W$, let's first understand what happens when we replace $\Vect$ by $\sVect$.
+Here we have:
+\begin{itemize}
+  \item $\pi_0((0\sVect)^\times) = k^\times$.
+  \item $\pi_0((1\Vect)^\times) = \ZZ_2$.
+  \item $\pi_0((2\Vect)^\times) = \ZZ_2$ (given by the first Clifford algebra).
+  \item $\pi_0((3\Vect)^\times) = \{ 1 \}$.
+  \item $\pi_0((4\Vect)^\times) = \sW$, the super-Witt group.
+    Here $\sW = \sW_\pt \oplus \sW' = \ZZ^\infty \oplus \ZZ_2^\infty \oplus \ZZ_4^\infty$.
+\end{itemize}
+
+Computations in the super case are actually easier than those in the classical case due to M\"uger factorizations.
+One may compute $W$ from $\sW$ using $\ZZ/16 \to W \to \sW$ (related to Kitaev's ``16-fold way'').
+We end up looking at a cofiber sequence of categories  relating $\pi_i((d\Vect)^\times)$ and $\pi_i((d\sVect)^\times)$.
+
+\subsection{Equivariant version}
+
+Let $G$ act on $d$-vector spaces.
+We look at $\Rep_{d\Vect}(G) =: d\Rep(G)$.
+As above, we iteratively construct $\Mod((d-1)\Rep(G))$.
+
+We may extend scalars to consider super-representations of $G$.
+There's a natural split homomorphism $d\Vect \to d\Rep(G)$ which we may use to compute $\pi_0(d\Rep(G))^\times$.
+We end up with $\pi_i(d\Rep(G)) = H^i(G, k^\times)$ for $i \leq 3$.
+The connecting homomorphisms in the corresponding cofiber sequence are often isomorphisms.
+Note that things break down in higher degrees though!
+
+\section{K\"ur\c{s}at S\"ozer -- From Homotopy 0-, 1-, and 2-Types to Graded Fusion Categories}
+
+Slide talk.
+This is based on joint work with Alexis Virelizier.
+There was a lot of standard review of topology which I didn't write down.
+
+\subsection{Crossed modules}
+
+Connected homotopy 1-types are all $K(G, 1)$'s, i.e.\ groups model connected homotopy 1-types.
+Connected homotopy 2-types are modeled by ``crossed modules'' (by a theorem of Mac Lane--Whitehead).
+Crossed modules are certain homomorphisms $\chi: E \to H$ where $H \curvearrowright E$ and the homomorphism is compatible with the action (in a precise sense).
+The corresponding homotopy 1-type $B\chi$ has $\pi_1(B\chi) = \coker(\chi)$ and $\pi_2(B\chi) = \ker(\chi)$.
+
+Here are a few examples:
+\begin{itemize}
+  \item Any group $G$ gives a natural crossed module $1 \to G$.
+  \item Any abelian group $A$ gives a natural crossed module $A \to 1$.
+  \item If $E \subset H$ is a normal subgroup, then $E \to H$ is a crossed module.
+  \item If $(X, A)$ is a pair of pointed topological spaces, then $\pi_2(X, A) \to \pi_1(A)$ is a crossed module.
+\end{itemize}
+
+Crossed modules capture the same information as strict 2-groups.
+
+\subsection{Graded fusion categories}
+
+The idea here is that:
+\begin{itemize}
+  \item Fusion categories are like $0$-types.
+  \item Group graded fusion categories are like $1$-types.
+  \item Crossed module graded fusion categories are like $2$-types.
+\end{itemize}
+
+For a crossed module $\chi: E \to H$, one may come up with a notion of $\chi$-graded fusion categories.
+Such a category $\Cc$ has $H$-grading on objects and $E$-grading on $\Hom$s.
+It's also possible to come up with notions of pivotal and spherical structures.
+There are many subtleties regarding notions of semisimplicity here!
+
+\begin{ex}
+  One can construct $\chi$-graded fusion categories from strict $2$-groups.
+\end{ex}
+
+It's also possible to define ``Hopf $\chi$-coalgebras.''
+The corresponding module categories give examples of $\chi$-graded fusion categories (in nice cases).
+
+The reason we care is that we might want to consider $\sigma$-models with target given by a connected homotopy $2$-type.
+This encompasses versions of homotopy quantum field theories and extensions of Kuperberg invariants.
+
+\section{Problem Session}
+
+\begin{itemize}
+  \item (Nico Bridges / K\"ur\c{s}at S\"ozer) What does a map to $B\chi$ classify?
+  \item (Eric Samperton) Is there an analogue of the Eilenberg--Mac Lane isomorphism $\Quad(A) = H^3_\ab(A; \Urm(1))$ for pointed $G$-crossed modular fusion categories?
+    What about the special case where $G$ is abelian?
+  \item (Shawn Cui) Is there a non-semisimple version of $G$-crossed or $\chi$-crossed modular tensor categories?
+  \item (K\"ur\c{s}at S\"ozer) What are the homotopy fixed points of the categories appearing in AD's talk?
+    Are $\pi_0(d\Rep(G))$ the homotopy $G$-fixed points?
+  \item (Kyle Kawagoe) How do the sequences in AD's talk fit into ``$n$-fold ways?''
+    Can we find explicit representatives?
+  \item (H\'ector Mart\'in Pe\~na Pollastri) Can we universally turn fusion categories into $\chi$-graded fusion categories?
+  \item (John Nolan) Can we do homotopy $n$-type gradings for fusion categories / analogues?
+  \item (Cesar Galindo) Can we view $\chi$-crossed braided categories as ``braided objects in $\chi$-crossed categories?''
+  \item (Shawn Cui) A $G$-crossed braided category is a monoidal $2$-category with invertible objects.
+    Does this generalize to $\chi$-crossed braided categories?
+\end{itemize}
+
+\section{H\'ector Mart\'in Pe\~na Pollastri -- The Relationship of Bicrossed Products of Fusion Categories and Extensions}
+
+Slide talk.
+We study algebraic objects by decomposing them into simpler objects and understanding how to build larger objects from these simple parts.
+
+For groups, we have a few nice methods:
+\begin{itemize}
+  \item Extensions $H \to G \to K$.
+  \item Exact factorizations $H \to G \leftarrow K$ with $G = H \cdot K$ and $H \cap K = \{ e \}$.
+\end{itemize}
+Both of these methods generalize to fusion categories.
+
+\subsection{Exact sequences of fusion categories}
+
+We may make sense of an exact sequence of fusion categories $\Ac \xrightarrow{i} \Bc \xrightarrow{F} \Cc$.
+However, the na\"ive definition forces $\Ac$ to have a fiber functor.
+Etingof--Gelaki proposed to instead look at sequences
+\[
+  \Ac \xrightarrow{i} \Bc \xrightarrow{F} \Cc \otimes \Endc(\Mc)\op
+\]
+and interpret ``$\ker F$'' as the preimage of $\Endc(\Mc)\op$.
+We may make sense of equivalences of these and thus define $\Ext(\Ac'', \Ac', \Mc)$ as equivalence classes of extensions of $\Ac''$ by $\Ac'$ with respect to $\Mc$.
+
+To prove theorems, we should consider special cases.
+Let's think about abelian extensions.
+Abelian extensions $\Rep G \to \Dc \to \Cc$ (with respect to $\Mc = \Vect$) are fully classified by crossed extensions.
+We may write $\Dc = \Cc^{(G, \pi)}$.
+This can be understood as a ``crossed product.''
+
+\subsection{Exact factorizations}
+
+Exact factorizations of groups come from bicrossed products of ``matched pairs'' $(H, K, H \leftarrow H \times K \to K)$.
+We can give a similar description for fusion categories.
+We can also decategorify this to give descriptions of the corresponding fusion rings.
+It's not clear if the associators of the corresponding categories always arise via bicrossed products.
+
+It's possible to make sense of equivavlence classes of exact factorizations.
+One can then show that (when the module category $\Mc$ is $\Vect$ or $\Ac$) exact factorizations forrespond to exact sequences.
+Under this equivalence, the crossed extensions above correspond to bicrossed products with $\Vect_G$.
+In particular, every exact factorization $\Cc \cdot \Vect_G$ is equivalent to a bicrossed product.
+One may work this out explicitly for Tambara--Yamagami categories.
+
+\section{David Green -- Braidings for Non-Split Tambara--Yamagami Categories over the Reals}
+
+This is based on joint work with Yoyo Jiang and Sean Sanford.
+
+\begin{ex}
+  The categories $\Rep_\CC(D_4)$ and $\Rep_\CC(Q_8)$ are Tambara--Yamagami categories.
+\end{ex}
+
+We'll want to understand the situation over $\RR$.
+Here things are more complicated because the endomorphisms of a simple object need not be the ground field.
+Some examples to consider are $\Bim_\RR(\CC)$ and $\Rep_\RR(\ZZ / 4 \ZZ)$.
+
+One can classify Tambara--Yamagami categories over $\RR$ using a diagram the speaker drew.
+(I took a photo.)
+
+Consider a Tambara--Yamagami category $\TY_\CC(A, \chi, \tau)$ over $\CC$.
+If this is braided, then:
+\begin{itemize}
+  \item We must have $A = \ZZ_2^n$.
+  \item Braidings are classified by quadratic forms $\sigma$ on $A$ with $\delta \sigma = \chi$.
+  \item The group of braided automorphisms is given by $\Aut(A, \sigma)$.
+\end{itemize}
+
+In the split real case, $\chi$ must be $\RR$-valued (because it is used to define associators).
+The braiding gives rise to a number $\sigma_3(1) \in \RR$, and we need $\sigma_3(1)^2 = \tau \sum(\sigma)$ where $\sum(\sigma)$ denotes the Gauss sum.
+This produces an extra condition for a braiding to exist: we need $\sgn(\sum(\sigma)) = \sgn(\tau)$.
+The group of braided automorphisms is still given by $\Aut(A, \sigma)$.
+
+Handling other cases proceeds along similar lines.
+
+\section{Eric Samperton -- Complexity Dichotomies for TQFT Invariants}
+
+Slide talk.
+
+\subsection{Warmup}
+
+Let $G$ be a finite group.
+If $\Gamma$ is any finitely presented group, let $\#H(\Gamma, G)$ be the number of homomorphisms $\Gamma \to G$.
+
+\begin{thm}
+  The problem of counting $\#H(\Gamma, G)$ is in functional polynomial time if and only if $G$ is abelian.
+  Otherwise the problem is $\#P$-complete.
+\end{thm}
+
+The goal of this talk is to prove a similar result for invariants of $3$-manifolds.
+Here we replace $\Gamma$ by a (combinatorially presented) $3$-manifold and $G$ by a fusion category.
+
+\subsection{Motivation from topological quantum computing}
+
+Kitaev proposed a quantum error-correcting ``toric code.''
+This has fault-tolerant ``anyon braiding'' operations (which relate to topological invariants of links).
+More generally, for cellulated surfaces, we may define ``surface codes.''
+
+The toric code is not powerful enough to build a universal quantum computer.
+To get such a universal quantum computer, we need to work with non-abelian theories.
+Anyon braiding in $U_q(\sl_2)$ is $BQP$-universal.
+The $BQP$-universal quantity here is a certain non-topological normalization of the Jones polynomial.
+
+We can also do a more powerful version of TQC using ``adaptive charge measurements.''
+This allows us to fuse anyons, measure the charge (collapsing the wave function), and use this to control future braidings.
+This is still fault-tolerant but no longer computes knot / $3$-manifold invariants.
+
+There are two ways to implement TQC:
+\begin{itemize}
+  \item ``Software'' using quantum error-correcting codes.
+    This is hardware agnostic, but encoding / decoding is difficult.
+    Mathematically, this relates to Turaev--Viro theories.
+  \item ``Hardware'' using new phases of topological quantum matter.
+    This requires a firm control of the hardware, but encoding / decoding is easier.
+    Mathematically, this relates to Reshetikhin--Turaev theories.
+\end{itemize}
+
+Recall that Turaev--Viro TQFTs are fully extended TQFTs associated with unitary fusion categories $\Cc$.
+These compute invariants of closed oriented triangulated $3$-manifolds via state sums.
+When $\Cc = \Rep(G)$, the invariant is $\#H(\pi_1(M), G) / \#G$.
+Note that $3$-manifold groups $\pi_1(M)$ are ``class $2$ solvable'' so the counting problem is easier in this case.
+
+Reshetikhin--Turaev TQFTs are partially extended TQFTs defined using unitary \emph{modular} fusion categories.
+These compute invariants of closed oriented $3$-manifolds with \emph{surgery diagrams} via state sums.
+For spherical fusion categories $\Cc$ the Reshetikhin--Turaev theory for $Z(\Cc)$ and Turaev--Viro theories for $\Cc$ agree.
+However, note that Reshetikhin--Turaev theories are more general: not every unitary modular fusion category arises as $Z(\Cc)$.
+We'll focus on Reshetikhin--Turaev theories.
+
+\subsection{Anyon classification}
+
+Here are five types of ``anyon classification'' problems:
+\begin{enumerate}
+  \item Classify unitary modular fusion categories (ideally ``up to finite group theory'')
+  \item Classify simple objects in a unitary modular fusion category according to the image of the braid group actions (dense, finite, ...).
+    The Naidu--Rowell ``Property F conjecture'' is relevant here.
+  \item Classify modular fusion categories according to the computational complexity of exact computation of Reshetikhin--Turaev invariants.
+    Given a fixed $\Bc$, how hard is it to compute Reshetikhin--Turaev invariants of surgery diagrams?
+    We may also try to restrict to certain classes.
+    The speaker showed that the problem is hard for hyperbolic manifolds whenever it is difficult in general.
+  \item Classify modular fusion categories according to the computational complexity of \emph{approximate} computation of Reshetikhin--Turaev invariants.
+    This requires us to choose a definition of ``approximate.''
+    One may look at specific problems relevant to universal TQC.
+  \item Classify unitary modular fusion categories according to whether they support universal TQC with adaptive charge measurements.
+    This is the most important for applications!
+\end{enumerate}
+
+We'll focus on problem 3 here as a useful starting class for the (more important) problems 4 and 5.
+A result of Kuperberg gives a key relationship between these problems.
+
+\subsection{Preliminary results}
+
+Let $\Bc$ be a modular fusion category.
+One may define a computational problem $\#CSP(\Fc_\Bc)$ of ``exactly contracting tensors built from $\Bc$.''
+This is either:
+\begin{itemize}
+  \item Solvable in polynomial time, or
+  \item $\#P$-hard.
+\end{itemize}
+In the former case, Reshetikhin--Turaev invariants may be computed in polynomial time.
+In the latter case it is unlikely that the tensor contraction problem may be solved efficiently using a quantum computer.
+We don't know whether the Reshetikhin--Turaev invariants may be computed more efficiently.
+It would also be interesting to develop results for probabilistic computations.
+
+The proof relies on a difficult theorem of Cai--Chen related to weighted constraint satisfaction problems.
+The idea is to turn the Reshetikhin--Turaev problem into the Cai--Chen problem.
+This is easiest to do in the Turaev--Viro case.
+
+Note: it is difficult to determine whether, for a given $\Bc$, the problem $\#CSP(\Fc_\Bc)$ is solvable in polynomial time!
+
+\subsection{Some conjectures}
+
+If we fix bounds on the first $\ZZ_2$ Betti number of $M$, we may compute Reshetikhin--Turaev invariants of $M$ for Tambara--Yamagami categories efficiently.
+This leads us to ask: when can we turn exponential sums into sums that are easier to evaluate?
+
+\begin{thm}[S]
+  Fix a finite group $G$ which is nilpotent of class $2$.
+  Let $M$ be a triangulated / surgery $3$-manifold.
+  There is a polynomial time algorithm for counting $\#H(\pi_1(M), G)$.
+\end{thm}
+
+A rough conjecture is that exact computation of Reshetikhin--Turaev invariants for $\Bc$ is easy if and only if $\Bc$ is ``nilpotent of class at most $2$.''
+This can be defined precisely in terms of gaugings of abelian anyons.
+The speaker has an efficient algorithm when $\Bc$ is nilpotent of class at most $2$.
+
+One would guess that $\Bc$ supports $BQP$-universal TQC with adaptive charge measurement if and only if the corresponding manifold invariants are $\#P$-hard.
+
+\section{Eric Rowell -- Braids and Categories as Quantum Symmetries}
+
+Slide talk.
+There's a good dictionary between unitary modular categories and anyonic systems.
+In particular, anyons are objects of unitary modular categories.
+
+\subsection{Modular fusion categories}
+
+We like to think about many examples of modular fusion categories:
+\begin{itemize}
+  \item The Fibonacci category.
+  \item The Ising category.
+  \item Pointed ccategories associated with $(A, q)$ where $A$ is an abelian group and $q$ is a quadratic form.
+  \item Unitary modular categories arising from quantum groups at roots of unity.
+\end{itemize}
+
+As always, one has methods for producing new modular fusion categories from existing examples:
+\begin{itemize}
+  \item Gauging
+  \item Condensation / localization
+  \item Zesting / condensed fiber products
+\end{itemize}
+
+There is a mostly complete classification of unitary modular fusion categories up to rank $12$.
+(There are some potential examples of classification data in ranks $11$ and $12$ where the speaker isn't sure whether examples exist.)
+
+\subsection{The property F conjecture and some related questions}
+
+\begin{conj}[Property F conjecture]
+  Let $a$ be any anyon type.
+  Then $|\rho_a(B_n)| < \infty$ if and only if $d_a^2 \in \ZZ$.
+\end{conj}
+
+This has been proved in many cacses (e.g.\ quantum groups, weakly group-theoretical cases).
+Anyons satisfying the conclusion of the conjecture cannot be braiding universal.
+Cui and collaborators suggested ``measurement assisted protocols'' that can fix this.
+
+Let $a$ be an anyon corresponding to an object $V \in \Cc$.
+We'd like to consider $R \in \End(V \otimes V)$ and understand the behavior of $\rho_a$ in terms of $R$.
+
+\begin{conj}[Matrix version of property F conjecture]
+  Let $R$ be a unitary Yang--Baxter operator.
+  Then $\rho^R(B_n)$ is \emph{virtually abelian}, i.e.\ there exists a finite-index abelian subgroup of $\rho^R(B_n)$.
+  In particular, $\{ R \}$ is never universal.
+\end{conj}
+
+One might try to solve this by classifying Yang--Baxter operators.
+This is hard!
+Hietarinta classified them in the case $\dim V = 2$, but nobody has managed to do this in higher dimensions.
+
+One approach is to categorify the problem.
+We may form a monoidal category of braids $\BB = \sqcup_n B(B_n)$.
+There's also a monoidal category of matrices $\Mat$ (the skeleton of $\Vect$).
+Thus a Yang--Baxter operator $R$ corresponds to a strict monoidal functor $\BB \to \Mat$ (up to non-monoidal equivalence).
+This leads one to consider the category $\MonFun(\BB, \Mat)$.
+More generally, we can consider $\YB(\Cc)$, the category of \emph{Yang--Baxter objects} of $\Cc$.
+
+\begin{thm}
+  If $\Cc$ is braided, then $\YB(\Cc)$ is monoidal with unit $(\onebb, \id_{\onebb \otimes \onebb})$.
+\end{thm}
+
+The monoidal structure on $\YB(\Cc)$ is the ``lashing product.''
+Note that $\YB(\Cc)$ doesn't have an initial or terminal object, so there are many strange subtleties.
+
+To classify Yang--Baxter objects, we are interested in looking at certain subcategories $\Cc \subset \Mat$, e.g.\
+\begin{itemize}
+  \item Permutation matrices.
+  \item Unitary matrices.
+  \item ``Charge conserving'' matrices.
+    In this case there is a complete classification of Yang--Baxter objects in terms of ``bicolored composition tableaux.''
+\end{itemize}
+
+\section{Shawn Xingshan Cui -- On Some Problems in Topological Quantum Computing}
+
+\subsection{Basics of TQC}
+
+Recall that an anyon system corresponds to a unitary modular tensor category $\Cc$.
+Here:
+\begin{itemize}
+  \item Types of anyons correspond to simple objects.
+    In particular, the vacuum corresponds to the monoidal unit.
+  \item Fusion rules correspond to decompositions of tensor products into sums of simple objects.
+  \item The state space $V^{a_1 \dots a_n}_{c}$ corresponds to the Hom space $\Hom(c, a_1 \otimes \dots \otimes a_n)$.
+  \item Splitting / fusion tree bases of state spaces correspond to bases of Hom spaces.
+  \item $F$-symbols and $R$-symbols may be defined in terms of associators / braiding data.
+\end{itemize}
+
+Quantum computing has the following ingredients:
+\begin{itemize}
+  \item Qubits are $\CC^2$ (with orthonormal bases $\ket{0}, \ket{1}$).
+    More generally we may consider qudits $\CC^d$.
+    Quantum states are unit vectors in $(\CC^2)^{\otimes N}$.
+  \item Quantum states are unitary transformations on $(\CC^2)^{\otimes N}$.
+  \item Measurement is a probabilistic operation on states.
+\end{itemize}
+
+In TQC we take qubits to be state spaces $V^{a_1 \dots a_n}_c$.
+Quantum gates are given by the images of braids under representations acting on $V^{a_1 \dots a_n}_c$.
+TQC can compute the Jones polynomial, and in fact this is a universal problem.
+
+\subsection{Universality}
+
+As $N \to \infty$ we have $\dim V_b^{a^{\otimes N}} \to (d_a)^N$ for some appropriate $b$.
+Here $d_a$ is the Frobenius--Perron dimension.
+If $d_a = 1$, we say $a$ is an abelian anyon.
+Otherwise $d_a$ is a non-abelian anyon.
+
+Say that an anyon $a$ is braiding universal if, for some $b$, $\im(\rho)$ is dense in $\Urm(V_b^{a^{\otimes N}})$ for sufficiently large $N$.
+
+\begin{thm}[Freedman--Larsen--Wang]
+  For $k \neq 0, 1, 2, 4$, the anyon of type $1$ in $\SU(2)_k$ is braiding universal.
+\end{thm}
+
+\begin{thm}[A.\ Kaufmann--Cui]
+  For $k \neq 0, 1, 2, 4$, the anyon of type $1$ in $\SU(2)_k$ on one qubit is universal through double braiding, i.e.\ the image is dense in $\Urm(2)$.
+\end{thm}
+
+Let's think about the remaining cases:
+\begin{itemize}
+  \item $k = 0$ is trivial.
+  \item $k = 1$ is the semion theory, which is abelian (and therefore not useful).
+  \item $k = 2$ is the Ising theory, which is expected to be efficiently simulatable using a classical computer.
+  \item For $k = 4$, we look at qutrit models.
+    This is universal when we also allow measurement of total type of two anyons.
+    We call this ``resource-assisted universal.''
+\end{itemize}
+
+It would be interesting to classify the resource-assisted universal theories.
+
+\begin{ex}
+  Consider the dihedral group $D_n$.
+  Irreps of the quantum double are classified by conjugacy classes in $D_n$ together with irreps of their centralizers.
+  The speaker has a Mathematica package for computing $F$-symbols and $R$-symbols of these quantum doubles.
+  One can show that the double of $D_3 = S_3$ gives a resource-assisted universal model of TQC.
+  There are other results for $D_6$ and $D_5$.
+\end{ex}
+
+\subsection{Leakage-free braiding}
+
+Note that $V_b^{a^{\otimes N}}$ does not naturally decompose as a tensor product.
+Instead, we work with subspaces of $V_b^{a^{\otimes N}}$ that do decompose as tensor products.
+Say a braid is \emph{leakage-free} if it preserves such a subspace and \emph{entangled} if it does not decompose as a tensor product of unitary maps followed by a swap.
+
+\begin{qn}
+  Does the Fibonacci model have an entangled leakage-free braiding gate?
+\end{qn}
+
+None have been found among braids with word length less than $10$.
+
+\begin{conj}
+  An anyon is braiding universal if and only if it does not support any leakage free braiding gates.
+\end{conj}
+
+\subsection{Quantum error correction}
+
+Anyon systems often come from exactly solvable lattive models.
+
+\begin{ex}
+  The toric code arises in this way and gives abelian anyons.
+  Ground states for the toric code are locally indistinguishable, so the toric code is error-correcting.
+\end{ex}
+
+\begin{ex}
+  The Kitaev quantum double model also arises in this way.
+  In this case, the Hamiltonian is ``frustration free,'' so the ground states should be locally indistinguishable.
+  The conjecture ``frustration-free implies error-correcting'' has not been proven mathematically.
+  The speaker has some results in this direction for the Kitaev quantum double model and twisted variants.
+  These are enough to prove that the twisted Kitaev model is error-correcting.
+  One may show that the twisted Kitaev model is a ``local topological order.''
+\end{ex}
+
+\section{Julia Plavnik -- The Condensed Fiber Product and Zesting}
+
+This is based on joint work with Colleen Delaney, Cesar Galindo, Eric Rowell, and Qing Zhang.
+
+\subsection{Motivation}
+
+We want to classify modular fusion categories.
+In particular, the current project came out of understanding modular fusion categories of Frobenius--Perron dimension $36$, where some interesting number-theoretic examples appear.
+Zesting turns out to be useful for:
+\begin{itemize}
+  \item Categorifying fusion rings
+  \item Realizing modular data
+  \item Distinguishing ``modular isotopes'' (categories with the same modular data)
+\end{itemize}
+
+Zesting is also quite concrete: we may describe ranks, Frobenius--Perron dimensions, modular data, and many other properties of the resulting category.
+However, we can't control the central charge or Witt class.
+
+Finally, zesting may be used to understand Kitaev's 16-fold way for minimal modular extensions.
+There are two orbits within this way, and the two are related by zesting.
+
+\subsection{Setup}
+
+Let $\Cc$ be a ribbon fusion category.
+This comes with:
+\begin{itemize}
+  \item A fusion ring $K_0(\Cc)$.
+  \item Associators $\alpha_{X,Y,Z}$ satisfying the pentagon equation.
+  \item A braiding $c_{X,Y}$ satisfying hexagon equations.
+  \item A twist $\theta_X: X \xrightarrow{\sim} X$ satisfying $\theta_{X \otimes Y} = (\theta_X \otimes \theta_Y) \circ c_{Y,X} \circ c_{X,Y}$.
+\end{itemize}
+
+\subsection{Zesting}
+
+Suppose we have a grading $\Cc = \oplus_{g \in G} \Cc_g$ with $\otimes: \Cc_g \otimes \Cc_h \to \Cc_{gh}$.
+Assume for simplicity that $\Cc$ is braided.
+
+For zesting, we want to keep the category the same but adjust the tensor product on $\Cc$ so that
+\[
+  X_g \tilde{\otimes} Y_h = X_g \otimes Y_h \otimes \lambda(g, h) \in \Cc_{gh}
+\]
+where $\lambda(g, h)$ is invertible in $\Cc_e$.
+To make this new tensor product associative:
+\begin{itemize}
+  \item $\lambda(g, h)$ must come with a half-braiding $c_{\lambda(g,h),-}$, i.e.\ $\lambda(g,h)$ must live in some ``relative center.''
+    In our case this comes from the braiding on $\Cc$.
+  \item $\lambda(g, h)$ must satisfy a cocycle condition: there should be isomorphisms 
+    \[
+      \nu(g, h, k): \lambda(g, h) \otimes \lambda(gh, k) \xrightarrow{\sim} \lambda(h, k) \otimes \lambda(g, hk).
+    \]
+  \item These $\nu$ maps must satisfy the pentagon equation.
+    We end up seeing that $\nu$ must be a $3$-cochain, i.e.\ there is an obstruction in $H^4$.
+  \item We also like to normalize everything so that the trivial component is unchanged.
+\end{itemize}
+We get a new fusion category $\tilde{\Cc} = \Cc^{(\lambda,\nu)}$ which is also an extension of $\Cc_e$.
+
+We'd also like to adjust the braiding $c$.
+This uses $t: \lambda(g, h) \to \lambda(h, g)$, though as above there may be obstructions.
+
+If $\Cc$ is furthermore a ribbon fusion category, we want to adjust the twist $\theta$ so that $\tilde{\theta}_{X_g} = f(g) \theta_{X_g}$ for some $f: G \to k^\times$ (with vanishing obstructions).
+We end up with a new ribbon fusion category.
+
+\begin{ex}
+  Associative zesting transforms $\Vect_G$ into $\Vect_G^\omega$.
+\end{ex}
+
+As zesting doesn't change the underlying category, the rank and Frobenius--Perron dimension are unchanged.
+We also have formulas for the associators, modular data, M\"uger center, etc.
+Zesting may be viewed as a particular case of extension theory.
+
+\subsection{$G$-crossed zesting}
+
+What happens if $\Cc$ is a $G$-crossed braided fusion category?
+Here $\Cc$ is $G$-graded but also comes with a $G$-action $T_h(-) = (-)^h$ satisfying $T_h(\Cc_g) = \Cc_{h\inv g h}$.
+The braiding is now $G$-crossed, i.e.\
+\[
+  c_{X_g,Y_h}: X_g \otimes Y_h \xrightarrow{\sim} Y_h \otimes (X_g)^h.
+\]
+
+To zest such a category, we use the same formula for $\tilde{\otimes}$.
+However, now we adjust $\alpha$ using 
+\[
+  \nu: \lambda(g, h)^k \otimes \lambda(gh, k) \to \lambda(h, k) \otimes \lambda(g, hk).
+\]
+
+\begin{thm}
+  The resulting $\Cc^{(\lambda,\nu)}$ is a fusion category.
+\end{thm}
+
+By a theorem of Davydov and Nikshych, central $G$-extensions give $G$-extensions of braided subcategories $\Bc \subset \Cc$ with lifts $\Bc \to \Zc(\Cc)$.
+The upshot for us is that $G$-crossed extensions correspond to central $G$-extensions.
+
+\begin{thm}
+  The inclusion $\Cc_e \subset \Cc^{(\lambda,\nu)}$ is a central $G$-extension.
+  Thus $\Cc^{(\lambda,\nu)}$ is a $G$-crossed braided fusion category and we may explicitly understand the $G$-action and braiding.
+\end{thm}
+
+\begin{thm}
+  Let $\Bc$ be a braided fusion category.
+  Then two $G$-crossed braided fusion categories have the same $G \to \Mod(\Bc)^\times$ if and only if they are related by $G$-crossed zesting.
+\end{thm}
+
+\subsection{The condensed fiber product}
+
+Let $B$ be a finite abelian group.
+Fix $z \in Z(B)$ with $z^2 = 1$,
+We get a quadratic form $q_z$ on $\hat{B}$ by $q_z(\phi) = \phi(z)$.
+Thus we obtain a symmetric pointed fusion category $\Bc_z = \Cc(\hat{B}, q_z)$.
+
+We's like to consider a non-degenerate(ly $B$-graded) fusion category $\Cc$ with $\Bc_z \subset \Cc_e$.
+We have a decomposition $\Cc = \oplus_{b \in B} \Cc_b$ where $\Cc_b = \bset{X}{c_{\phi,X} \circ c_{X,\phi} = \phi(b) \forall \phi \in \hat{B}}$.
+Here we have $\Bc_z \subset \Cc_e \cap \Cc_e'$.
+
+Suppose we also have a non-degenerate $\Dc$ with $\Bc_z \subset \Dc$.
+We have $\Rep(\Bc) \equiv \nabla \Bc_z= \angles{(\phi, \phi\inv)} \subset \Cc \boxtimes \Dc$.
+We define 
+\[
+  \Cc \star^B \Dc = (\Cc \boxtimes \Dc)^\loc_{\Fun(\Bc)} = (\oplus_{b \in B} \Cc_b \boxtimes \Dc_b)_B = (\Cc \boxtimes^B \Dc)_B.
+\]
+This is the \emph{condensed fiber product.}
+By construction, $\Cc \star^B \Dc$ is non-degenerate.
+Here $(\Bc_z \boxtimes \Bc_z)_B = \Bc_Z \subset (\Cc \star^B \Dc)_e \cap (\Cc \star^B \Dc)_e'$.
+
+We may consider the category  $\Sc^\nd(B, \Bc_z)$ of non-degenerate $\Cc$ with $\Bc_z \subset \Cc$.
+This category is monoidal with operation $\star^B$ and unit $\Zc(\Bc_z)$.
+
+\begin{thm}
+  If $\Pc \in \Sc^\nd(B, \Bc_z)$ is pointed and $\dim(\Pc) = |\Bc|^2$, then $\Pc$ is a zesting of $\Zc(\Bc_z)$.
+\end{thm}
+
+\begin{thm}
+  If $\Cc \in \Sc^\nd(B, \Bc_z)$, then any $B$-zesting of $\Cc$ may be obtained as $\Cc \star^B \Pc$ with $\Pc \in \Zc(\Bc_z)^{(\lambda,\nu,t)}$.
+\end{thm}
+
+\section{Abigail Watkins -- From $G$-Equivariantization to the Category of Wilson Lines and Back Again}
+
+Slide talk.
+Based on joint work with Sebastian Heinrich, Julia Plavnik, and Ingo Runkel.
+
+\subsection{Overview}
+
+Suppose we are given a (faithfully $G$-graded) $G$-crossed ribbon category $\hat{\Bc}$.
+We can equivariantize to get $\hat{\Bc}^G$, or we can use an ``orbifold datum'' $\AA \in \Bc = \hat{\Bc}_e$ to get a category of Wilson lines $\Bc_\AA$.
+The claim is that $\hat{\Bc}^G \simeq \Bc_\AA$ as ribbon categories.
+
+Recall that $\hat{\Bc}^G$ is the ribbon tensor category with objects 
+\[
+  (X \in \hat{\Bc}, (\eta_g^X: \phi(g) X \xrightarrow{\sim} X)\big)
+\]
+such that the equivariant structure maps $\eta_g^X$ form the expected commutative squares.
+The tensor products, braidings, and twists are all defined naturally.
+
+\subsection{Orbifold data}
+
+Orbifold data $\AA \in \Cc$ allow us to modify ribbon categories via a ``Wilson lines construction.''
+More precisely, $\AA$ consists of:
+\begin{itemize}
+  \item A $\Delta$-separable symmetric Frobenius algebra $A$,
+  \item an $(A, A \otimes A)$-bimodule $T$, and
+  \item several structure maps.
+\end{itemize}
+
+The category of Wilson lines $\Bc_\AA$ has objects given by $(A, A)$-bimodules $M$ together with several ``intertwining maps'' controlling $M \otimes_A T$.
+
+If $\hat{\Bc}$ is a $G$-crossed ribbon map, we may produce an orbifold datum in $\Bc$.
+These require some choices.
+
+\begin{thm}
+  With the above construction, there is an equivalence $\hat{\Bc}^G \simeq \Bc_\AA$.
+  In particular the category $\Bc_\AA$ is independent of the choices made.
+\end{thm}
+
+\section{Marco Boggi -- A Generating Set for the Johnson Kernel}
+
+\subsection{The Johnson group and the Torelli group}
+
+Let $S_{g,m}$ be a surface of genus $g$ with $m$ punctures.
+The \emph{mapping class group} of $S_{g,m}$ is
+\[
+  \Gamma(S_{g,m}) = \pi_0(\Diff^+(S_{g,m})) = \Diff^+(S_{g,m}) / \Diff^0(S_{g,m}).
+\]
+There is a natural surjection $\Gamma(S_{g,m}) \to \Sigma_m$ given by restricting to the punctures.
+The kernel of this map is the \emph{pure} mapping class group $P\Gamma(S_{g,m})$.
+
+There is also a natural surjection $P\Gamma(S_{g,m}) \to \Sp(H_1(\ol{S}, \ZZ))$.
+The kernel of this map is the \emph{Torelli group} $I(S)$.
+
+We'll focus on the case $g \geq 3$ and $m \leq 1$.
+In this case we let $J(S) = \ker(P\Gamma(S) \to \Out(\pi_1(S) / \pi_1(S)^{T(S)}))$.
+This $J(S)$ is the \emph{Johnson group}, and it contains $[I(S), I(S)]$ as a normal subgroup.
+We may view $J(S)$ as generated by Dehn twists $\tau_\gamma$ along separating simple closed curves $\gamma$.
+
+There is a short exact sequence
+\[
+  \begin{tikzcd}
+    1 \rar & J(S) / [I(S), I(S)] \rar & I(S)^\ab \rar & I(S) / I(S) \rar & 1.
+  \end{tikzcd}
+\]
+where:
+\begin{itemize}
+  \item $J(S) / [I(S), I(S)]$ is a finite $\ZZ/2$-torsion abelian group, and
+  \item $I(S) / J(S)$ is a torsion-free finitely-generated abelian group.
+\end{itemize}
+
+For $g \geq 3$, we have $I(S) = \angles{\tau_{\gamma_1} \tau_{\gamma_2}\inv}^{\Gamma(S)}$ where $\gamma_1$ and $\gamma_2$ are taken to be neighboring ``cuffs'' in a pants decomposition.
+Here $\angles{}^{\Gamma(S)}$ denotes the smallest normal subgroup containing these elements.
+(There's a picture but I can't \TeX it up in time.)
+
+One may also show that $J(S) = \angles{\tau_{\gamma_1} \tau_{\gamma_2}}^{\Gamma(S)}$ where $\gamma_i$ bounds a genus $i$ surface in $S$.
+
+\subsection{Results}
+
+Can we find a smaller generating set for the Johnson group?
+
+\begin{thm}
+  The Johnson group $J(S)$ is generated by Dehn twists about simple closed curves which bound:
+  \begin{itemize}
+    \item An unpunctured genus $1$ subsurface,
+    \item A $1$-punctured genus $1$ subsurface,
+    \item An unpunctured genus $2$ subsurface, or
+    \item A disc bounding $2$ punctures.
+  \end{itemize}
+\end{thm}
+
+Note that this is a true generating set, not a normal generating set!
+
+The proof proceeds by induction and a modification of Johnson's original argument.
+Let $A_{g,m}$ be the claim for $S_{g,m}$.
+
+\begin{lem}
+  For $g \geq 5$, we have $A_{g,1} \Rightarrow A_{g+1,0}$.
+\end{lem}
+
+\begin{lem}
+  We also have $A_{g,m} \Rightarrow A_{g,m+1}$.
+\end{lem}
+
+Combining these and noting that the statement is trivial when $g$ is small, we obtain the theorem.
+The proof of the first lemma is standard, while the proof of the second is more difficult.
+
+\section{Problem Session}
+
+Here are problems focused on the talks from today and yesterday:
+\begin{itemize}
+  \item (Eric Samperton) There are 16 modular Ising categories.
+    ES expects Ising invariants are hard, while SC expects classical simulation of Ising models is feasible.
+    What are the tradeoffs between complexity versus computational power?
+  \item Can we prove that Ising TQC is efficiently classically simulatable?
+  \item (Kyle Kawagoe / Shawn Cui) How can we relate the braiding approach to adaptive measurements depending on super-selection sectors to post-selection?
+    How can we tell whether a given modular fusion category allows us to implement a ``controlled braiding'' based on adaptive measurements?
+  \item (John Nolan) Are there interesting examples of zesting tensor categories when the grading is infinite?
+  \item (Julia Plavnik) What is the precise relationship between zesting and condensed fiber products?
+    Is there a counterexample?
+  \item (Shawn Cui) Does the TQFT invariant complexity dichotomy work in arbitrary dimension?
+    ES pointed out that TQFT invariants of surfaces are always computable in polynomial time (since surfaces can be triangulated to be long and thin).
+    ES thinks the question in $4$d may be relatively quick to answer.
+  \item (Kyle Kawagoe) Does there exist a circuit from Kitaev to Levin--Wen for Hopf algebras?
+  \item (Alexei Davydov) Do there exist two $3$-manifolds $M_1$, $M_2$ such that all Turaev--Viro invariants are the same but not all Reshetikhin--Turaev invariants are the same?
+    This somehow relates to Witt group homomorphisms.
+\end{itemize}
+
+\section{Siddharth Vadnerkar -- $G$-Crossed BTC of Symmetry Defects}
+
+Slide talk.
+Based on joint work with Kyle Kawagoe and Daniel Wallick.
+
+\subsection{The problem}
+
+\begin{conj}
+  $G$-crossed BTCs describe low-energy physics of $G$-symmetric 2d quantum spin systems.
+\end{conj}
+
+The story in 1d was explained by M\"uger.
+The proof in 2d is the subject of this talk.
+
+\subsection{M\"uger's work}
+
+M\"uger focused on 1d spin systems with $G$-action.
+Consider an infinite real line with each point $i \in \ZZ$ labeled by $\Ac_i = \CC^n$.
+On this we may build a ``quasi-local algebra'' $\Ac = \otimes_{\textrm{intervals } I} \otimes_{i \in I} \Ac_i$.
+We assume there is a gapped ground state $\omega_0: \Ac \to \Cc$.
+Let $\beta^i_g$ describe a $G$-action on site $i$, and assume the ground state is $G$-invariant, i.e.\ $\omega_0 \circ \beta_g = \omega_0$.
+
+Given a site $i$, we may describe a $g$-symmetry defect $\beta_g^{R_i}$ where we have $\beta_g$ act only on sites to the right of $i$.
+The operator $\beta_g^{R_i}$ is $g$-localized in some $I \ni i$.
+We may send $\beta_g^{R_i}$ to $\beta_g^{R_j}$ via some local unitary.
+Thus we get $\omega_0 \circ \beta_g^{R_i} \circ \beta_g^{R_j} \approx \omega_0 \circ \beta_{gh}^{R_k}$, i.e.\ we may pass between these states using local operators.
+
+More generally, we say that $\Pi \in \End(\Ac)$ is a $g$-defect if it is $g$-localized (in some interval) and transportable (terms both defined in the talk).
+If $\pi_g$ is a $g$-defect and $\rho_h$ is an $h$-defect, then $\pi_g \circ \rho_h$ is a $gh$-defect.
+This definition of $g$-defect turns out to work well!
+
+Let $\Delta^g$ be the set of all $g$-defects, and say $\Hom(\pi_g, \rho_g) = \bset{T \in \Ac}{T \pi_g(-) = \rho_g(-) T}$.
+We define a category $\Delta^G = \oplus_{g \in G} \Delta^g$.
+This has a monoidal structure given by composition in $\End(\Ac)$.
+
+\begin{thm}[M\"uger]
+  The category $\Delta^G$ is a $G$-crossed braided tensor category.
+\end{thm}
+
+\begin{rmk}
+  One can really think of this as a sketch of what's happening on the boundary.
+\end{rmk}
+
+\subsection{What happens in 2d}
+
+Everything is different now!
+Defects include domain walls and line operators.
+Furthermore, there are multiple ways for defects to go off to infinity.
+
+To simplify things, let's fix the behavior of our line defects at infinity.
+We also consider ``allowed cones'' $\Lambda$ such that some translate of the line defect doesn't intersect the cone.
+Given an allowed cone $\Lambda$, we can still make sense of left halves $L_\Lambda$ and $R_\Lambda$.
+We imagine that there is a hypothetical ``spin chain at infinity,'' and the allowed cones describe intervals in this spin chain.
+It's easiest to see with a picture but I can't TikZ it up.
+
+Say that $\pi \in \End(\Ac)$ is a $g$-defect if it is $g$-localized (in some allowed cone) and transportable.
+As before, the composition of $g$-defects and $h$-defects is a $gh$-defect.
+We can imitate M\"uger's definition of a category, though there are many subtleties!
+
+\begin{thm}
+  We obtain a $G$-crossed braided $C^*$-tensor category $\Delta^G$.
+\end{thm}
+
+The special case of $\Delta^1$ gives a BTC of anyons.
+This agrees with many known constructions from the literature.
+We can also understand fractionalization classes $\eta$ from $\Delta^G$.
+The class $\eta$ is stable under local perturbations.
+
+\section{John S.\ Nolan -- Geometric Construction of Quiver Tensor Products}
+
+This was my own talk and I only used paper notes, sorry!
+
+\section{Maxine Calle -- Cut and Paste Theory of Manifolds and Cobordism}
+
+Slide talk.
+This is joint work with Maru Sarazola.
+
+\subsection{SK-manifolds}
+
+We want to study manifolds up to ``cut and paste operations,'' described by \emph{SK moves}.
+``Hilbert's third problem for manifolds'' asks what algebraic measurements classify SK equivalence.
+It turns out that all we need are the Euler characteristic and the signature (if we care about orientations).
+More precisely, let $SK_d$ be the Grothendieck group of $d$-manifolds mod SK equivalence.
+
+\begin{thm}[Karras--Kreck--Neumann--Ossa, 1970s]
+  \[
+    \SK_d = \begin{cases}
+      0 & d \textrm{odd} \\
+      \ZZ & d \equiv 2 \pmod 4 \\
+      \ZZ \oplus \ZZ & d \equiv 0 \pmod 4.
+    \end{cases}
+  \]
+\end{thm}
+
+\subsection{SK-moduli spaces}
+
+A more recent viewpoint is to study the moduli space of SK-equivalences and its homotopy type.
+The SK-automorphisms of a manifold are particularly interesting.
+One may study this using ideas from Zakharevich's ``scissors congruence $K$-theory.''
+
+\begin{thm}[Hoekzema--Merling--Murray--Rovi--Semikina]
+  There is a category $\Mfld_d^\partial$ with squares $K$-theory space $K^\square(\Mfld_d^\partial)$ satisfies
+  \[
+    K_0^\square(\Mfld_d^\partial) \cong \SK_d^\partial.
+  \]
+\end{thm}
+
+We don't know what happens for the higher $K$-theory!
+Furthermore, squares $K$-theory is hard to work with.
+
+\begin{thm}[C--Sarazola]
+  There is another Waldhausen-ish $K$-theory space $K(\Mfld_d^\partial)$ such that:
+  \begin{itemize}
+    \item There is a map $K(\Mfld_d^\partial) \to K^\square(\Mfld_d^\partial)$ which is an isomorphism on $\pi_0$.
+    \item $K^1(\Mfld_d^\partial)$ controls SK-automorphisms.
+    \item $K(\Mfld_d^\partial) \simeq \Omega B\Cob_d^f$.
+  \end{itemize}
+\end{thm}
+
+Here $\Cob_d^f$ is the $\infty$-category with:
+\begin{itemize}
+  \item objects: closed $(d-1)$-manifolds
+  \item morphisms: cobordisms with free boundary
+  \item higher morphisms: diffeomorphisms relative to boundary
+\end{itemize}
+We have $\pi_0(B\Cob_d^f) = \Omega_d^f= 0$.
+
+\begin{prop}[C--Sarazola, Merling--Raptis--Semikina]
+  \[
+    \pi_1(B\Cob_d^f) \cong \SK_d^\partial.
+  \]
+\end{prop}
+
+The higher homotopy groups of $B\Cob_d^f$ remain unknown.
+
+\section{Alice Kimie Miwa Libardi -- The Borsuk-Ulam Theorem for Filtered Spaces}
+
+Slide talk.
+Joint work with C.\ Biasi, D.\ de Mattos, E.\ dos Santos, and S.\ Ura.
+
+\subsection{Background}
+
+Let $S^m$ be the $m$-dimensional sphere and $A: S^m \to S^m$ the antipode map.
+
+\begin{thm}[Borsuk-Ulam]
+  If $f: S^m \to \RR^n$ is any continuous map, there exists $x \in S^m$ such that $f(x) = f(A(x))$.
+\end{thm}
+
+We'll focus on topological spaces $X$ with free $\ZZ_2$-action (corresponding to involutions $T: X \to X$).
+We'd like to generalize Borsuk-Ulam by considering maps $f: X^n \to X^n$ and asking when there exists $x$ such that $f(x) = f(T(x))$.
+
+\subsection{Results}
+
+Consider the natural map $X/\ZZ_2 \to B\ZZ_2$.
+Pulling back the generator $\alpha \in H^1(B\ZZ_2, \ZZ_2)$ to $X/\ZZ_2$ gives an Euler class $e_X \in H^1(X/\ZZ_2, \ZZ_2)$.
+The speaker talked about how (non-)vanishing of Euler classes can be used to give obstructions to existence of equivariant maps.
+
+The main theorem discusses a criterion for non-existence of equivariant maps.
+This specializes to give a criterion in terms of filtrations of the spaces.
+At around this point I stopped following things, sorry!
+
+\section{Calvin McPhail Snyder -- What is the Target of a $2$-Functor out of \texorpdfstring{$\Tang(G, X)$}{Tang(G, X)}?}
+
+Slide talk.
+
+\subsection{Setup}
+
+Let $\Tang$ be the category of oriented framed tangles.
+Suppose $\Cc$ is a ribbon category, and let $\Tang_\Cc$ be the category of tangles coloredby objects of $\Cc$.
+The \emph{Reshetikhin--Turaev construction} gives a functor $\Tang_\Cc \to \Cc$.
+
+We can upgrade this all to a $G$-equivariant story.
+Here $\Tang(G)$ is the category of oriented framed tangles with representations $\pi_1 \to G$.
+More precisely, $\Tang(G)$ has objects generated by $(g, \pm)$ for $g \in G$, and the representations $\pi_1 \to G$ appear in the morphisms.
+This is a $G$-ribbon category, i.e.\ a $G$-crossed braided category with a suitable twist functor.
+The braiding here acts on one strand via conjugation.
+For a $G$-ribbon category $\Cc$, the category $\Tang_\Cc(G)$ has tangles colored by objects of $\Cc$ respecting degrees.
+Turaev (and others?) construct $\Tang_\Cc(G) \to \Cc$ giving invariants of tangles with $G$-structures.
+
+\subsection{$\Tang(G, X)$}
+
+We'll focus on $\Tang(G, X)$ where $X$ is a $G$-module.
+This is a 2-category, not just a monoidal category.
+Interesting examples include:
+\begin{itemize}
+  \item Quantizations of $\sl_2(\CC)$ Chern--Simons theory.
+  \item Zesting.
+\end{itemize}
+
+Note that a monoidal category is a $2$-category with one object.
+We may consider a graphical calculus for $2$-categories where:
+\begin{itemize}
+  \item Objects correspond to regions,
+  \item $1$-morphisms correspond to points / strings, and
+  \item $2$-morphisms correspond to boxes.
+\end{itemize}
+
+Let $\Tang(G, X)$ be the $2$-category with:
+\begin{itemize}
+  \item Objects are $x \in X$
+  \item $1$-morphisms are $g: x \to xg$
+  \item $2$-morphisms are tangles with labeling by $G$ and $X$, i.e.\ tangles plus representations of $\pi_1$ of the complement plus gauge data $x \in X$.
+\end{itemize}
+
+We may interpret this as a monoidal category with ``partially defined tensor product'' (we may only combine regions when we match the labelings for domains).
+
+\subsection{Chern--Simons theory}
+
+Consider Chern--Simons theory for $\SL_2(\CC)$.
+More precisely, let $M$ be a closed $3$-manifold and consider a representation $\rho: \pi_1(M) \to \SL_2(\CC)$ (corresponding to a hyperbolic structure on $M$).
+Fix a flat $\sl_2$-connection on $M$ with holonomy $\rho$.
+We may define a Chern--Simons functional $S(A)$, where $S(A)$ is independent of the choice of $A$ modulo $4 \pi^2 i$.
+To actually compute this, we:
+\begin{itemize}
+\item Triangulate $M$.
+\item Use $\rho$ to find geometric shapes of tetrahedra.
+\item Add dilogarithms on each tetrahedron.
+\end{itemize}
+
+If $M$ has a boundary (e.g.\ $M = S^3 \setminus \nu(K)$) we can still make sense of things, though we need to label the boundary by defects?
+Actually doing this can be nontrivial.
+
+\begin{thm}[MS, building off Inoue--Kabaya]
+  One can (generically) define a $2$-functor $\Ic: \Tang(\SL_2(\CC), \CC^2) \to \Vect$ capturing the exponentiated Chern--Simons invariant $e^{S/2\pi}$.
+\end{thm}
+
+To make this work, one need to use region colors.
+
+\begin{thm}[MS--Reshetikhin]
+  There is a quantum invariant $\Zc_N(T, \rho)$ quantizing $\Ic(T, \rho)$.
+  When $\rho$ is trivial this recovers Kashaev's invariant.
+\end{thm}
+
+This should relate to $\SL_2(\CC)$ quantum Chern--Simons and the volume conjecture.
+
+\subsection{Zesting}
+
+Let $\Cc$ be a modular tensor category and let $A$ be its universal grading group (the maximal $A$ such that $\Cc$ is faithfully $A$-graded).
+Given zesting data $\zeta = (\lambda, \nu, t, \epsilon)$, we may define a new modular tensor category $\Cc^\zeta$.
+This has the same objects as $\Cc$, but the tensor product and braiding are modified.
+
+\begin{qn}
+  How do the Reshetikhin--Turaev invariants constructed from $\Cc^\zeta$ relate to those constructed from $\Cc$?
+\end{qn}
+
+\begin{thm}[Delaney--Kim--Plavnik]
+  If the coloring is $A$-homogeneous and $T$ is a link, then the RT invariants agree up to scalars.
+\end{thm}
+
+\begin{thm}[Delaney--MS]
+  This may be generalized to tangles if we incorporate an extra grading.
+  More precisely, instead of working with $\Tang(A)$, we need to use $\Tang(A, A)$.
+\end{thm}
+
+The upshot is that the associators in $\Cc^\zeta$ force us to keep track of $A$-gradings, and $\Tang(A, A)$ allows us to do this.
+The ``scalar factors'' are accounted for by a functor $J_\zeta: \Tang(A, A) \to \Inv(\Cc_e)$ which may be computed in polynomial time.
+
+\begin{qn}
+  \begin{itemize}
+    \item How does $J_\zeta$ relate to condensed fiber products?
+    \item Is the image of $J_\zeta$ a $2$-category in a useful way?
+    \item What are the right definitions / axioms for $(G, X)$-graded $2$-categories?
+    \item How does this relate to the invariants of S\"ozer--Virelizier for homotopy $2$-types?
+  \end{itemize}
+\end{qn}
+
+\section{David Chan -- Equivariant Categories and Cohomology Theories}
+
+Slide talk.
+Joint with Maxine Calle and Maximilien P\'eroux.
+
+Goals for this talk:
+\begin{itemize}
+  \item Explain equivariant cohomology theories.
+  \item Discuss $G$-symmetric monoidal categories.
+  \item Explain how to use these to construct cohomology theories.
+\end{itemize}
+
+Let $G$ be finite throughout.
+
+\subsection{Equivariant cohomology}
+
+In the equivariant world, there are different kinds of ``holes'' for each dimension.
+
+\begin{ex}
+  For $G = \ZZ_2$, there are four different involutions on $S^2$.
+  We want to understand these cohomologically.
+  As $G$-modules, we have $H_2(S^2_\mathrm{triv}) = H_2(S^2_\mathrm{rot})$, so usual homology can't tell these apart.
+\end{ex}
+
+We may fix these by introducing additional grading.
+More precisely, let $V$ be a real $G$-representation and let $S_V$ be its one-point compactification.
+We'd like to grade things by $V \in \Rep(G)$ so that $H_V(S^V) = \ZZ$.
+
+\subsection{Constructing equivariant cohomology theories}
+
+Recall that Brown representability gives an equivalence between infinite loop spaces and (connective) cohomology theories.
+Thus, to give a connective cohomology theory, it suffices to give a space and a sequence of deloopings.
+
+\begin{ex}
+  Let $G$ be an abelian group.
+  Then $G \simeq \Omega^n B^n G$, and the corresponding cohomology theory is singular cohomology with coefficients in $G$.
+\end{ex}
+
+\begin{ex}
+  The sphere spectrum $\SS = \colim_{n \to \infty} \Omega^n S^n$ represents framed bordism.
+\end{ex}
+
+This can be upgraded to the $G$-equivariant setting.
+More precisely, if $X$ is a $G$-space, we define $\Omega^V X = \Map_*(S^V, X)$.
+An infinite loop $G$-space is $X$ such that, for all $V$, there exist $X_V$ with $X \simeq \Omega^V X_V$ for all $V \in \Rep(G)$.
+With this definition, there is a correspondence between infinite loop $G$-spaces and $G$-equivariant cohomology theories.
+
+\subsection{Categories and cohomology theories}
+
+Segal showed that every symmetric monoidal category $\Cc$ determines an infinite loop space $K(\Cc)$.
+Thomason showed that every infinite loop space is equivalent to $K(\Cc)$ for some $\Cc$.
+We'd like to do this in the $G$-equivariant setting, i.e.\ build infinite loop $G$-spaces out of equivariant SMCs.
+
+The na\"ive approach is to use SMCs with $G$-action, i.e.\ functors from $BG$ to $\SMCat$.
+This doesn't really work because the deloopings $K(\Cc) = \Omega^V X_V$ are hard to compute.
+
+\begin{dfn}[Hill--Hopkins]
+  A $G$-symmetric monoidal category $\Cc$ is:
+  \begin{itemize}
+    \item For all $H \subset G$, a SMC $\Cc_H$
+    \item For $H \subset K \subset G$, induction and restriction functors between $\Cc_H$ and $\Cc_K$.
+    \item For $K \subset G$ and $g \in G$, strong monoidal functors $\Cc_K \to \Cc_{gKg\inv}$.
+    \item Higher coherence data controlling Mackey's formula, etc.
+  \end{itemize}
+\end{dfn}
+
+\begin{ex}
+  We may take $\Cc_H = \Rep(H)$ or $\Fin^H$.
+\end{ex}
+
+\begin{thm}[Calle--C--P\'eroux]
+  Let $\Cc$ be a $G$-SMC.
+  Then there exists an infinite loop $G$-space $K_G(\Cc)$ with underlying space $K(\Cc_1)$.
+  Furthermore, every infinite loop space if $K_G(\Cc)$ for some $\Cc$.
+\end{thm}
+
+\begin{ex}
+  $K_G(\Fin_*, \wedge)$ is $G$-framed bordism.
+\end{ex}
+
+\subsection{Where do $G$-SMCs come from?}
+
+There's a category $\Span$ such that SMCs are the same as product preserving pseudofunctors $F: \Span \to \Cat$.
+Here $\Span$ has:
+\begin{itemize}
+  \item Objects: finite sets
+  \item Morphisms: spans of finite sets
+  \item Products: sums of finite $G$-sets.
+\end{itemize}
+
+To define $G$-SMCs, we may imitate this but replace $\Fin$ by finite $G$-sets.
+Then a $G$-SMC is a product-preserving pseudofunctor $\Span^G \to \Cat$.
+These are ``Mackey functors in categories.''
+
+\begin{qn}
+  What is a $G$-braided monoidal category?
+\end{qn}
+
+\section{Kyle Kawagoe -- Levin--Wen as a Gauge Theory}
+
+Joint with C.\ Jones, S.\ Sanford, D.\ Green, and D.\ Penneys.
+
+Goals for the talk:
+\begin{itemize}
+  \item What are the hallmarks of a gauge theory?
+  \item What is gauging?
+  \item How can we write the Levin--Wen model as a gauged theory?
+\end{itemize}
+
+\subsection{Gauge theories}
+
+\begin{ex}
+  Let's start by recalling some basic electromagnetism.
+  This has a few noteworthy properties:
+  \begin{itemize}
+  \item Here $\vec{E} = \nabla V$, i.e.\ $\vec{E}$ can be understood via differences in a potential.
+  \item Furthermore, electromagnetism is quantized: electric flux through a closed surface is some multiple of the electron charge $e$.
+  \item The gauge symmetry acts locally.
+  \end{itemize}
+\end{ex}
+
+In general, a gauge theory will have a symmetry group $G$.
+Charges are given by representations of $G$.
+Fluxes are ``local violations of the theory'' / ``interesting boundary conditions on punctures.''
+
+\begin{ex}
+  The toric code is a $\ZZ_2$ gauge theory.
+  We consider a grid where the edges are labeled by Hilbert spaces $\Hc_e = \CC^2$.
+  The total Hilbert spaces is $\Hc = \otimes_e \Hc_e$.
+  The Hamiltonian may be written
+  \[
+    H = -\sum_v A_v - \sum_p B_p
+  \]
+  where:
+  \begin{itemize}
+    \item At a vertex $v$, we have ``fluxes'' $A_v = Z_1 Z_2 Z_3 Z_4$ where
+      \[
+        Z = \begin{bmatrix}
+          1 & 0 \\
+          0 & -1
+        \end{bmatrix}
+      \]
+      acts on each neighboring edge.
+    \item At squares / plaquettes, we have ``charges'' $B_p = X_1 X_2 X_3 X_4$ where
+      \[
+        X = \begin{bmatrix}
+          0 & 1 \\
+          1 & 0
+        \end{bmatrix}
+      \]
+      acts on each neighboring edge.
+  \end{itemize}
+  This can be understood as a lattice presentation of the double of $\ZZ_2$.
+  Kramers--Wannier gauging gives an relationship between this and the ``trivial paramagnet.''
+  More precisely, the $\ZZ_2$-invariants of the Hilbert space of the paramagnet correspond to the flux-free part of the Hilbert space of the toric code.
+  There's also a relationship between the Hamiltonians.
+  The upshot is that Kramers--Wannier turns a theory of domains into a theory of domain walls.
+\end{ex}
+
+\subsection{Levin--Wen}
+
+Let $\Cc$ be a unitary fusion category.
+The \emph{tube algebra} of $\Cc$ is 
+\[
+  \Tube(\Cc) = \bigoplus_{a,b,c \in \Irr(\Cc)} \Hom_\Cc(a \otimes b, c \otimes a).
+\]
+The algebra structure is given by ``stacking.''
+
+The \emph{Levin--Wen model} has Hilbert space
+\[
+  \Hc = \otimes_v \Hc_v \textrm{ where } \Hc_v = \oplus_{a,b,c,d \in \Irr(\Cc)} \Hom_\Cc(a \otimes b, c \otimes d).
+\]
+The Hamiltonian is
+\[
+  H= -\sum_e A_e - \sum_b B_p
+\]
+I couldn't really follow the definition of $A_e$ and $B_p$ here.
+One may relate this to a theory coming from the tube algebra via a ``Kramers--Wannier gauging'' operation.
+
+\section{Shana Li -- Multivariable Knot Polynomials, the \texorpdfstring{$V_n$}{V\_n} Polynomials, and Their Patterns}
+
+Slide talk.
+Joint with Garoufalidis.
+
+\subsection{Background}
+
+A \emph{rigid $R$-matrix} is $R \in \Aut(V \otimes V)$ satisfying the Yang--Baxter equation and such that the partial transposes
+\[
+  \tilde{R^{\pm 1}} = (\epsilon \otimes \id \otimes \id) \circ (\id \otimes R^{\pm 1} \otimes \id) \circ (\id \otimes \id \otimes \eta)
+\]
+are invertible in $\End(V \otimes V)$.
+
+\begin{thm}[Kashaev]
+  Let $R$ be a rigid $R$-matrix.
+  Then the corresponding Reshetikhin--Turaev functor gives an $\End(V)$-valued invariant of knots.
+\end{thm}
+
+The rigid condition is needed to deal with the case of caps / cups going in the ``wrong direction.''
+
+\begin{thm}[Garoufalidis--Kashaev]
+  Given a braided Hopf algebra with automorphisms, one may construct a rigid $R$-matrix.
+\end{thm}
+
+Nichols algebras are a useful class of braided Hopf algebras.
+A \emph{Nichols algebra} is an algebra of the form $T(V) / J$ where $J$ is a maximal ideal not meeting $k \oplus V$.
+Note that:
+\begin{itemize}
+  \item Nichols algebras of rank $1$ give colored Jones polynomials and ADO polynomials.
+  \item Nichols algebras of rank $2$ give Links--Gould polynomials and $V_n$ polynomials.
+\end{itemize}
+
+For $V_n$ polynomials, the endomorphism of $V$ obtained via Kashaev's approach is a scalar multiple of $\id_V$.
+The $V_n$ polynomial is given by the scalar.
+In general, $V_n$ polynomials can get quite large.
+
+\subsection{Results and conjectures}
+
+The speaker computed $V_2$ polynomials for all knots with $\leq 16$ crossings.
+Some steps were needed to optimize the computation:
+\begin{itemize}
+  \item Since the $R$-matrix is sparse, a ``divide and conquer method'' may be used.
+  \item A certain tensor contraction path may simplify things.
+\end{itemize}
+
+The $V_n$ polynomials have many interesting patterns: 
+\begin{itemize}
+  \item There's a symmetry property.
+  \item The $V_n$ polynomials conjecturally specialize to the Alexander polynomial.
+  \item The $V_n$ polynomials conjecturally satisfy a bound given in terms of the Seifert genus: $\deg_t V_{K,n}(t, q) \leq 4g(K)$.
+\end{itemize}
+
+\begin{thm}[Garoufalidis--L]
+  The genus bound inequality is an equality for $V_2$-polynomials with $\leq 16$ crossings.
+\end{thm}
+
+The speaker conjectures that $V_2$-polynomials detect the genus.
+
+It is rather rare that two knots have equal $V_2$ polynomials.
+In the cases checked, these have isomorphic knot Floer homology and isomorphic Khovanov homology.
+These may all be Conway mutant knots to each other (so are generally hard to tell apart).
+The $V_2$ polynomials do tell apart a large number of Conway mutant knots.
+Most of these knots are also knot Floer homology thin and Khovanov thin, so being mutant implies that the corresponding invariants agree.
+
+When $K$ is an alternating knot with $\leq 16$ coefficients, the polynomials $V_1(t, -q)$ and $V_2(t, -q)$ have nonnegative integer coefficients.
+Is there a categorification of these?
+
+\end{document}
